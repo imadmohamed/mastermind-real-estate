@@ -10,7 +10,7 @@ const Landing = () => {
     <div>
       <HeroSection />
       <FeaturesSection />
-      <DiscoverSection />
+      <DiscoverSection /> 
       <CallToActionSection />
       <FooterSection />
     </div>

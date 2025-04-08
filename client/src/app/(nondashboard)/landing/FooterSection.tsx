@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -16,7 +17,14 @@ const FooterSection = () => {
         <div className="flex flex-col md:flex-row justify-between items-center">
           <div className="mb-4">
             <Link href="/" className="text-xl font-bold" scroll={false}>
-              RENTIFUL
+            <Image
+  src="/logo.svg"
+  alt="Master Mind Real Estate Logo"
+  width={256}
+  height={256}
+  className="w-64 h-64" // 48 * 4 = 192px
+  priority
+/>
             </Link>
           </div>
           <nav className="mb-4">
@@ -47,7 +55,7 @@ const FooterSection = () => {
               <FontAwesomeIcon icon={faFacebook} className="h-6 w-6" />
             </a>
             <a
-              href="#"
+              href="https://www.instagram.com/masterminddubai/"
               aria-label="Instagram"
               className="hover:text-primary-600"
             >
@@ -57,7 +65,7 @@ const FooterSection = () => {
               <FontAwesomeIcon icon={faTwitter} className="h-6 w-6" />
             </a>
             <a
-              href="#"
+              href="https://www.linkedin.com/company/masterminddubai/posts/?feedView=all"
               aria-label="Linkedin"
               className="hover:text-primary-600"
             >
@@ -69,7 +77,7 @@ const FooterSection = () => {
           </div>
         </div>
         <div className="mt-8 text-center text-sm text-gray-500 flex justify-center space-x-4">
-          <span>© RENTiful. All rights reserved.</span>
+          <span>© Master Mind Real Estate. All rights reserved.</span>
           <Link href="/privacy">Privacy Policy</Link>
           <Link href="/terms">Terms of Service</Link>
           <Link href="/cookies">Cookie Policy</Link>

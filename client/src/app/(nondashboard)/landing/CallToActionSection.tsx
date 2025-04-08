@@ -7,7 +7,7 @@ import Link from "next/link";
 
 const CallToActionSection = () => {
   return (
-    <div className="relative py-24">
+    <div className="relative py-24 margin-top-10">
       <Image
         src="/landing-call-to-action.jpg"
         alt="Rentiful Search Section Background"

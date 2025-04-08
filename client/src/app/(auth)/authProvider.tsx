@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect } from "react";
+import Image from "next/image";
 import { Amplify } from "aws-amplify";
 import {
   Authenticator,
@@ -28,12 +29,16 @@ const components = {
   Header() {
     return (
       <View className="mt-4 mb-7">
-        <Heading level={3} className="!text-2xl !font-bold">
-          RENT
-          <span className="text-secondary-500 font-light hover:!text-primary-300">
-            IFUL
-          </span>
-        </Heading>
+        <Heading level={3} className="!text-2xl !font-bold flex items-center">
+        
+        <Image 
+            src="/logo.svg" 
+            alt="Master Mind real estate logo"
+            width={80}
+            height={40}
+            className="h-16 w-auto ml-1"
+        />
+    </Heading>
         <p className="text-muted-foreground mt-2">
           <span className="font-bold">Welcome!</span> Please sign in to continue
         </p>
