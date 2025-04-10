@@ -26,7 +26,7 @@ const ContactWidget = ({ onOpenModal }: ContactWidgetProps) => {
         <div>
           <p>Contact This Property</p>
           <div className="text-lg font-bold text-primary-800">
-            (424) 340-5574
+          +971 523 497 762
           </div>
         </div>
       </div>
@@ -39,7 +39,7 @@ const ContactWidget = ({ onOpenModal }: ContactWidgetProps) => {
 
       <hr className="my-4" />
       <div className="text-sm">
-        <div className="text-primary-600 mb-1">Language: English, Bahasa.</div>
+        <div className="text-primary-600 mb-1">Language: English, Arab, Hindi.</div>
         <div className="text-primary-600">
           Open by appointment on Monday - Sunday
         </div>

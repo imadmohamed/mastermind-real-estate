@@ -152,8 +152,8 @@ export const api = createApi({
 
     updateTenantSettings: build.mutation<
       Tenant,
-      { cognitoId: string } & Partial<Tenant>
-    >({
+      { cognitoId: string } & Partial<Tenant>>
+      ({
       query: ({ cognitoId, ...updatedTenant }) => ({
         url: `tenants/${cognitoId}`,
         method: "PUT",

@@ -6,7 +6,6 @@ generator client {
 datasource db {
   provider   = "postgresql"
   url        = env("DATABASE_URL")
-  extensions = [postgis]
 }
 
 enum Highlight {
@@ -50,6 +49,7 @@ enum PropertyType {
   Villa
   Townhouse
   Cottage
+  
 }
 
 enum ApplicationStatus {

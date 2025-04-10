@@ -87,7 +87,7 @@ const PropertyDetails = ({ propertyId }: PropertyDetailsProps) => {
                 Application Fee
               </span>
               <span className="text-primary-700">
-                ${property.applicationFee}
+                AED {property.applicationFee}
               </span>
             </div>
             <hr />
@@ -96,7 +96,7 @@ const PropertyDetails = ({ propertyId }: PropertyDetailsProps) => {
                 Security Deposit
               </span>
               <span className="text-primary-700">
-                ${property.securityDeposit}
+                AED {property.securityDeposit}
               </span>
             </div>
             <hr />
