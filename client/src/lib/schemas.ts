@@ -5,8 +5,9 @@ export const propertySchema = z.object({
   name: z.string().min(1, "Name is required"),
   description: z.string().min(1, "Description is required"),
   pricePerMonth: z.coerce.number().positive().min(0).int(),
-  securityDeposit: z.coerce.number().positive().min(0).int(),
-  applicationFee: z.coerce.number().positive().min(0).int(),
+  securityDeposit: z.coerce.number().int().min(0),
+  // applicationFee: z.coerce.number().positive().min(0).int(),
+  applicationFee: z.coerce.number().int().min(0),  
   isPetsAllowed: z.boolean(),
   isParkingIncluded: z.boolean(),
   photoUrls: z
