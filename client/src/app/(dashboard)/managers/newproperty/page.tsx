@@ -1,6 +1,9 @@
+
+
 "use client";
 
 import { CustomFormField } from "@/components/FormField";
+import { useState } from "react";
 import Header from "@/components/Header";
 import { Form } from "@/components/ui/form";
 import { PropertyFormData, propertySchema } from "@/lib/schemas";
@@ -11,6 +14,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 
+
 const NewProperty = () => {
   const [createProperty] = useCreatePropertyMutation();
   const { data: authUser } = useGetAuthUserQuery();
@@ -20,17 +24,17 @@ const NewProperty = () => {
     defaultValues: {
       name: "",
       description: "",
-      pricePerMonth: 1000,
-      securityDeposit: 500,
-      applicationFee: 100,
+      pricePerMonth: 0,
+      securityDeposit: 0,
+      applicationFee: 0,
       isPetsAllowed: true,
       isParkingIncluded: true,
       photoUrls: [],
       amenities: "",
       highlights: "",
-      beds: 1,
-      baths: 1,
-      squareFeet: 1000,
+      beds: 0,
+      baths: 0,
+      squareFeet: 0,
       address: "",
       city: "",
       state: "",
@@ -101,7 +105,7 @@ const NewProperty = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <CustomFormField
                   name="securityDeposit"
-                  label="Security Deposit"
+                  label="Commission Fee"
                   type="number"
                 />
                 <CustomFormField

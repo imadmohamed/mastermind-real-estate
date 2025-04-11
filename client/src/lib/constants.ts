@@ -22,6 +22,11 @@ import {
   Castle,
   Trees,
   LucideIcon,
+  LandPlot,  // For plots/land
+  Hotel,     // For hotel plots
+  Factory,   // For industrial plots
+  School,    // For school/hospital plots
+  Store,     // For commercial plots
 } from "lucide-react";
 
 export enum AmenityEnum {
@@ -93,21 +98,44 @@ export const HighlightIcons: Record<HighlightEnum, LucideIcon> = {
 };
 
 export enum PropertyTypeEnum {
-  Rooms = "Rooms",
+  
   Tinyhouse = "Tinyhouse",
   Apartment = "Apartment",
   Villa = "Villa",
   Townhouse = "Townhouse",
   Cottage = "Cottage",
+  Plote = "Plote",
+  LuxuryVillaPlots = "LuxuryVillaPlots",  // Fixed: Matches enum key
+  ResidentialBuildingPlots = "ResidentialBuildingPlots",
+  CommercialBuildingPlots = "CommercialBuildingPlots",
+  LaborCampsPlots = "LaborCampsPlots",
+  WarehousePlots = "WarehousePlots",
+  HotelPlots = "HotelPlots",
+  IndustrialPlots = "IndustrialPlots",
+  SchoolOrHospitalPlots = "SchoolOrHospitalPlots",
+  OtherCommercialPlot = "OtherCommercialPlot",
+  Land = "Land",  // Added: For land/plots
 }
 
+
 export const PropertyTypeIcons: Record<PropertyTypeEnum, LucideIcon> = {
-  Rooms: Home,
-  Tinyhouse: Warehouse,
+  
   Apartment: Building,
   Villa: Castle,
+  Tinyhouse: Home,
+  Land: LandPlot,
   Townhouse: Home,
   Cottage: Trees,
+  Plote: LandPlot,
+  LuxuryVillaPlots: Castle,
+  ResidentialBuildingPlots: Building,
+  CommercialBuildingPlots: Store,
+  LaborCampsPlots: Warehouse,
+  WarehousePlots: Warehouse,
+  HotelPlots: Hotel,
+  IndustrialPlots: Factory,
+  SchoolOrHospitalPlots: School,
+  OtherCommercialPlot: Store,
 };
 
 // Add this constant at the end of the file
