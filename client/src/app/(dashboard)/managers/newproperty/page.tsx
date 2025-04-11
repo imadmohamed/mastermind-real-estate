@@ -3,7 +3,8 @@
 "use client";
 
 import { CustomFormField } from "@/components/FormField";
-import { useState } from "react";
+import { Controller } from 'react-hook-form';
+import Select from 'react-select';
 import Header from "@/components/Header";
 import { Form } from "@/components/ui/form";
 import { PropertyFormData, propertySchema } from "@/lib/schemas";
