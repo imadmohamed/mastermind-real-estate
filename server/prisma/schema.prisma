@@ -49,6 +49,17 @@ enum PropertyType {
   Villa
   Townhouse
   Cottage
+  Plote               
+  LuxuryVillaPlots     
+  ResidentialBuildingPlots
+  CommercialBuildingPlots
+  LaborCampsPlots
+  WarehousePlots
+  HotelPlots
+  IndustrialPlots
+  SchoolOrHospitalPlots
+  OtherCommercialPlot
+  Land
   
 }
 

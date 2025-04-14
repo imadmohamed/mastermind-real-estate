@@ -114,7 +114,8 @@ export enum PropertyTypeEnum {
   IndustrialPlots = "IndustrialPlots",
   SchoolOrHospitalPlots = "SchoolOrHospitalPlots",
   OtherCommercialPlot = "OtherCommercialPlot",
-  Land = "Land",  // Added: For land/plots
+  Land = "Land",  // Added: For land/plotsRooms
+ 
 }
 
 

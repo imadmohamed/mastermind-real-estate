@@ -206,23 +206,23 @@ export const createProperty = async (
       ...propertyData
     } = req.body;
 
-    const photoUrls = await Promise.all(
-      files.map(async (file) => {
-        const uploadParams = {
-          Bucket: process.env.S3_BUCKET_NAME!,
-          Key: `properties/${Date.now()}-${file.originalname}`,
-          Body: file.buffer,
-          ContentType: file.mimetype,
-        };
+    // const photoUrls = await Promise.all(
+    //   files.map(async (file) => {
+    //     const uploadParams = {
+    //       Bucket: process.env.S3_BUCKET_NAME!,
+    //       Key: `properties/${Date.now()}-${file.originalname}`,
+    //       Body: file.buffer,
+    //       ContentType: file.mimetype,
+    //     };
 
-        const uploadResult = await new Upload({
-          client: s3Client,
-          params: uploadParams,
-        }).done();
+    //     const uploadResult = await new Upload({
+    //       client: s3Client,
+    //       params: uploadParams,
+    //     }).done();
 
-        return uploadResult.Location;
-      })
-    );
+    //     return uploadResult.Location;
+    //   })
+    // );
 
     const geocodingUrl = `https://nominatim.openstreetmap.org/search?${new URLSearchParams(
       {
@@ -253,39 +253,40 @@ export const createProperty = async (
       VALUES (${address}, ${city}, ${state}, ${country}, ${postalCode}, ST_SetSRID(ST_MakePoint(${longitude}, ${latitude}), 4326))
       RETURNING id, address, city, state, country, "postalCode", ST_AsText(coordinates) as coordinates;
     `;
-
+const newdata = {
+  ...propertyData,
+  // photoUrls,
+  locationId: location.id,
+  managerCognitoId,
+  amenities:
+    typeof propertyData.amenities === "string"
+      ? propertyData.amenities.split(",")
+      : [],
+  highlights:
+    typeof propertyData.highlights === "string"
+      ? propertyData.highlights.split(",")
+      : [],
+  isPetsAllowed: propertyData.isPetsAllowed === "true",
+  isParkingIncluded: propertyData.isParkingIncluded === "true",
+  pricePerMonth: parseFloat(propertyData.pricePerMonth),
+  securityDeposit: parseFloat(propertyData.securityDeposit),
+  applicationFee: parseFloat(propertyData.applicationFee),
+  beds: parseInt(propertyData.beds),
+  baths: parseFloat(propertyData.baths),
+  squareFeet: parseInt(propertyData.squareFeet),
+}
     // create property
     const newProperty = await prisma.property.create({
-      data: {
-        ...propertyData,
-        // photoUrls,
-        locationId: location.id,
-        managerCognitoId,
-        amenities:
-          typeof propertyData.amenities === "string"
-            ? propertyData.amenities.split(",")
-            : [],
-        highlights:
-          typeof propertyData.highlights === "string"
-            ? propertyData.highlights.split(",")
-            : [],
-        isPetsAllowed: propertyData.isPetsAllowed === "true",
-        isParkingIncluded: propertyData.isParkingIncluded === "true",
-        pricePerMonth: parseFloat(propertyData.pricePerMonth),
-        securityDeposit: parseFloat(propertyData.securityDeposit),
-        applicationFee: parseFloat(propertyData.applicationFee),
-        beds: parseInt(propertyData.beds),
-        baths: parseFloat(propertyData.baths),
-        squareFeet: parseInt(propertyData.squareFeet),
-      },
+      data:newdata,
       include: {
         location: true,
         manager: true,
       },
     });
 
-    res.status(201).json(newProperty);
+    res.status(201).json(newdata);
   } catch (err: any) {
+    console.log(err);
     res
       .status(500)
       .json({ message: `Error creating property: ${err.message}` });
