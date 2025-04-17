@@ -24,6 +24,8 @@ export const propertySchema = z.object({
   state: z.string().min(1, "State is required"),
   country: z.string().min(1, "Country is required"),
   postalCode: z.string().min(1, "Postal code is required"),
+  latitude: z.number().min(-90).max(90),
+  longitude: z.number().min(-180).max(180),   
 });
 
 export type PropertyFormData = z.infer<typeof propertySchema>;

@@ -9,8 +9,8 @@ const Landing = () => {
   return (
     <div>
       <HeroSection />
-      <FeaturesSection />
-      <DiscoverSection /> 
+      {/* <FeaturesSection /> */}
+      {/* <DiscoverSection />  */}
       <CallToActionSection />
       <FooterSection />
     </div>

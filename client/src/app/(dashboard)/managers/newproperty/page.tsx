@@ -227,6 +227,23 @@ const NewProperty = () => {
                   className="w-full"
                 />
               </div>
+              <div className="flex justify-between gap-4">
+                <CustomFormField 
+                type="number"
+                name="latitude" 
+                label="Latitude" 
+                placeholder="25.25809"
+                className="w-full" />
+                
+                <CustomFormField
+                  type="number"
+                  name="longitude"
+                  label="Longitude"
+                  placeholder="55.30471"
+                  className="w-full"
+                />
+               
+              </div>
               <CustomFormField name="country" label="Country" />
             </div>
 

@@ -73,6 +73,8 @@ CREATE TABLE "Location" (
     "country" TEXT NOT NULL,
     "postalCode" TEXT NOT NULL,
     "coordinates" geography(Point, 4326) NOT NULL,
+    "latitude" DOUBLE PRECISION NOT NULL,
+    
 
     CONSTRAINT "Location_pkey" PRIMARY KEY ("id")
 );

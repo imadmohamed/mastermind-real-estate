@@ -1,3 +1,5 @@
+// 
+
 import { PrismaClient, Prisma } from "@prisma/client";
 import fs from "fs";
 import path from "path";
@@ -18,12 +20,15 @@ function toCamelCase(str: string): string {
 
 async function insertLocationData(locations: any[]) {
   for (const location of locations) {
-    const { id, country, city, state, address, postalCode, coordinates } =
-      location;
+    const { id, country, city, state, address, postalCode, latitude, longitude } = location;
+    
+    // Convert latitude and longitude to a WKT (Well-Known Text) Point string
+    const coordinates = `POINT(${longitude} ${latitude})`;
+    
     try {
       await prisma.$executeRaw`
-        INSERT INTO "Location" ("id", "country", "city", "state", "address", "postalCode", "coordinates") 
-        VALUES (${id}, ${country}, ${city}, ${state}, ${address}, ${postalCode}, ST_GeomFromText(${coordinates}, 4326));
+        INSERT INTO "Location" ("id", "country", "city", "state", "address", "postalCode", "coordinates", "longitude", "latitude") 
+        VALUES (${id}, ${country}, ${city}, ${state}, ${address}, ${postalCode}, ${latitude}, ${longitude}ST_GeomFromText(${coordinates}, 4326));
       `;
       console.log(`Inserted location for ${city}`);
     } catch (error) {
@@ -105,10 +110,30 @@ async function main() {
     } else {
       const model = (prisma as any)[modelNameCamel];
       try {
-        for (const item of jsonData) {
-          await model.create({
-            data: item,
-          });
+        // For Property model, make sure locationId exists
+        if (modelName === "Property") {
+          for (const item of jsonData) {
+            // Verify location exists first
+            const location = await prisma.location.findUnique({
+              where: { id: item.locationId }
+            });
+            
+            if (!location) {
+              console.error(`Location with ID ${item.locationId} not found, skipping property`);
+              continue;
+            }
+            
+            await model.create({
+              data: item,
+            });
+          }
+        } else {
+          // For other models, create normally
+          for (const item of jsonData) {
+            await model.create({
+              data: item,
+            });
+          }
         }
         console.log(`Seeded ${modelName} with data from ${fileName}`);
       } catch (error) {
