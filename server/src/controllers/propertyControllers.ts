@@ -239,22 +239,26 @@ export const createProperty = async (
         "User-Agent": "RealEstateApp (justsomedummyemail@gmail.com",
       },
     });
-    const [longitude, latitude] =
-      geocodingResponse.data[0]?.lon && geocodingResponse.data[0]?.lat
-        ? [
-            parseFloat(geocodingResponse.data[0]?.lon),
-            parseFloat(geocodingResponse.data[0]?.lat),
-          ]
-        : [0, 0];
+    // const [longitude, latitude] =
+    //   geocodingResponse.data[0]?.lon && geocodingResponse.data[0]?.lat
+    //     ? [
+    //         parseFloat(geocodingResponse.data[0]?.lon),
+    //         parseFloat(geocodingResponse.data[0]?.lat),
+    //       ]
+    //     : [0, 0];
+    const lg = parseFloat(propertyData.longitude);
+    const lt = parseFloat(propertyData.latitude);
+
 
     // create location
     const [location] = await prisma.$queryRaw<Location[]>`
       INSERT INTO "Location" (address, city, state, country, "postalCode", coordinates)
-      VALUES (${address}, ${city}, ${state}, ${country}, ${postalCode}, ST_SetSRID(ST_MakePoint(${longitude}, ${latitude}), 4326))
+      VALUES (${address}, ${city}, ${state}, ${country}, ${postalCode}, ST_SetSRID(ST_MakePoint(${lg}, ${lt}), 4326))
       RETURNING id, address, city, state, country, "postalCode", ST_AsText(coordinates) as coordinates;
     `;
+    const {latitude,longitude,...pd} = propertyData;
 const newdata = {
-  ...propertyData,
+  ...pd,
   // photoUrls,
   locationId: location.id,
   managerCognitoId,
@@ -273,7 +277,7 @@ const newdata = {
   applicationFee: parseFloat(propertyData.applicationFee),
   beds: parseInt(propertyData.beds),
   baths: parseFloat(propertyData.baths),
-  squareFeet: parseInt(propertyData.squareFeet),
+  squareFeet: parseInt(propertyData.squareFeet || "0"),
 }
     // create property
     const newProperty = await prisma.property.create({
