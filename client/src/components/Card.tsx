@@ -1,7 +1,7 @@
 import { Bath, Bed, Heart, House, Star } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const Card = ({
   property,
@@ -13,6 +13,12 @@ const Card = ({
   const [imgSrc, setImgSrc] = useState(
     property.photoUrls?.[0] || "/placeholder.jpg"
   );
+  console.log(property.photoUrls);
+  useEffect(()=>{
+    if (property.photoUrls?.length) {
+      setImgSrc(property.photoUrls[0]);
+    }
+  },[property.photoUrls]);
 
   return (
     <div className="bg-white rounded-xl overflow-hidden shadow-lg w-full mb-5">
