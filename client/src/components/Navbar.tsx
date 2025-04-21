@@ -182,15 +182,25 @@
 
 "use client";
 
-import { NAVBAR_HEIGHT } from "@/lib/constants";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
-import { Button } from "./ui/button";
+import { useRouter, usePathname } from "next/navigation";
 import { useGetAuthUserQuery } from "@/state/api";
-import { usePathname, useRouter } from "next/navigation";
 import { signOut } from "aws-amplify/auth";
-import { Bell, ChevronDown, MessageCircle, Plus, Search } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
+import { NAVBAR_HEIGHT } from "@/lib/constants";
+import {
+  Bell,
+  ChevronDown,
+  MessageCircle,
+  Plus,
+  Search,
+  Menu,
+  X,
+} from "lucide-react";
+
+import { Button } from "./ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -205,110 +215,78 @@ const Navbar = () => {
   const { data: authUser } = useGetAuthUserQuery();
   const router = useRouter();
   const pathname = usePathname();
+
   const [isScrolled, setIsScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const isDashboardPage =
     pathname.includes("/managers") || pathname.includes("/tenants");
+
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const handleSignOut = async () => {
     await signOut();
     window.location.href = "/";
   };
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  const navTextColor = isScrolled
+    ? "text-black hover:text-primary-500"
+    : "text-white hover:text-primary-300";
+  const navLinkClass = `text-lg font-medium transition-colors ${navTextColor}`;
+  const dropdownTriggerClass = `flex items-center gap-1 text-lg font-medium transition-colors ${navTextColor}`;
+  const iconColorClass = isScrolled ? "text-black" : "text-white";
 
   return (
     <div
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-        isScrolled ? "bg-white shadow-md py-1" : "bg-transparent py-4"
+        isScrolled ? "bg-white shadow-md py-1" : "bg-transparent py-3"
       }`}
       style={{ height: `${NAVBAR_HEIGHT}px` }}
     >
-      <div className="flex justify-between items-center w-full px-6 transition-all duration-300">
-        {/* Left Section */}
+      <div className="flex justify-between items-center w-full px-4">
+        {/* Logo & Sidebar */}
         <div className="flex items-center gap-4">
-          {isDashboardPage && (
-            <div className="md:hidden">
-              <SidebarTrigger />
-            </div>
-          )}
-          <Link
-            href="/"
-            className={`cursor-pointer ${
-              isScrolled ? "text-black" : "text-white"
-            }`}
-            scroll={false}
-          >
-            <div className="flex items-center gap-3">
-              <Image
-                src={isScrolled ? "/logo.svg" : "/logo1.svg"}
-                alt="Master Mind Real Estate Logo"
-                width={isScrolled ? 110 : 140}
-                height={isScrolled ? 110 : 140}
-                className="transition-all duration-300"
-              />
-            </div>
+          {isDashboardPage && <SidebarTrigger className="md:hidden" />}
+          <Link href="/" scroll={false}>
+            <Image
+              src={isScrolled ? "/logo.svg" : "/logo1.svg"}
+              alt="Logo"
+              width={isScrolled ? 140 : 200}
+              height={isScrolled ? 140 : 200}
+              className="transition-all duration-300"
+            />
           </Link>
         </div>
 
-        {/* Center Navigation */}
-        <div className="hidden md:flex items-center gap-8">
-          <Link
-            href="/about"
-            className={`hover:text-primary-400 font-medium transition ${
-              isScrolled ? "text-black" : "text-white"
-            }`}
-          >
-            ABOUT
-          </Link>
-          <Link
-            href="/sold"
-            className={`hover:text-primary-400 font-medium transition ${
-              isScrolled ? "text-black" : "text-white"
-            }`}
-          >
-            SOLD PRODUCTS
-          </Link>
+        {/* Desktop Nav */}
+        <div className="hidden md:flex gap-6 items-center">
+          <Link href="/about" className={navLinkClass}>ABOUT</Link>
+          <Link href="/sold" className={navLinkClass}>SOLD PRODUCTS</Link>
 
           <DropdownMenu>
-            <DropdownMenuTrigger
-              className={`flex items-center gap-1 font-medium hover:text-primary-400 transition ${
-                isScrolled ? "text-black" : "text-white"
-              }`}
-            >
-              Off Plan Projects <ChevronDown className="h-4 w-4" />
+            <DropdownMenuTrigger className={dropdownTriggerClass}>
+              OFF PLAN PROJECTS<ChevronDown className="h-4 w-4" />
             </DropdownMenuTrigger>
             <DropdownMenuContent className="bg-white text-primary-700 min-w-[200px]">
-              <DropdownMenuItem asChild>
-                <Link href="/off-plan/apartment">Apartment</Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link href="/off-plan/villa">Villa</Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link href="/off-plan/townhouse">Townhouse</Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link href="/off-plan/land">Land</Link>
-              </DropdownMenuItem>
+              {["apartment", "villa", "townhouse", "land"].map((type) => (
+                <DropdownMenuItem asChild key={type}>
+                  <Link href={`/off-plan/${type}`}>
+                    {type.charAt(0).toUpperCase() + type.slice(1)}
+                  </Link>
+                </DropdownMenuItem>
+              ))}
             </DropdownMenuContent>
           </DropdownMenu>
 
           <DropdownMenu>
-            <DropdownMenuTrigger
-              className={`flex items-center gap-1 font-medium hover:text-primary-400 transition ${
-                isScrolled ? "text-black" : "text-white"
-              }`}
-            >
-              Residential Plots <ChevronDown className="h-4 w-4" />
+            <DropdownMenuTrigger className={dropdownTriggerClass}>
+              RESIDENTIAL PLOTS <ChevronDown className="h-4 w-4" />
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="bg-white text-primary-700 min-w-[220px]">
+            <DropdownMenuContent className="bg-white text-primary-700 min-w-[200px]">
               <DropdownMenuItem asChild>
                 <Link href="/residential/luxury-villa">Luxury Villa Plot</Link>
               </DropdownMenuItem>
@@ -319,64 +297,40 @@ const Navbar = () => {
           </DropdownMenu>
 
           <DropdownMenu>
-            <DropdownMenuTrigger
-              className={`flex items-center gap-1 font-medium hover:text-primary-400 transition ${
-                isScrolled ? "text-black" : "text-white"
-              }`}
-            >
-              Commercial Plots <ChevronDown className="h-4 w-4" />
+            <DropdownMenuTrigger className={dropdownTriggerClass}>
+              COMMERCIAL PLOTS <ChevronDown className="h-4 w-4" />
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="bg-white text-primary-700 min-w-[250px]">
-              <DropdownMenuItem asChild>
-                <Link href="/commercial/building">Commercial Building Plots</Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link href="/commercial/labor-camps">Labor Camps Plots</Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link href="/commercial/warehouse">Warehouse Plots</Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link href="/commercial/hotel">Hotel Plots</Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link href="/commercial/industrial">Industrial Plots</Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link href="/commercial/school-hospital">School/Hospital Plot</Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link href="/commercial/other">Other Commercial Plot</Link>
-              </DropdownMenuItem>
+            <DropdownMenuContent className="bg-white text-primary-700 min-w-[200px]">
+              {[
+                "building",
+                "labor-camps",
+                "warehouse",
+                "hotel",
+                "industrial",
+                "school-hospital",
+                "other",
+              ].map((type) => (
+                <DropdownMenuItem asChild key={type}>
+                  <Link href={`/commercial/${type}`}>
+                    {type.replace("-", " ").replace(/\b\w/g, (l) => l.toUpperCase())}
+                  </Link>
+                </DropdownMenuItem>
+              ))}
             </DropdownMenuContent>
           </DropdownMenu>
 
-          <Link
-            href="/contact"
-            className={`hover:text-primary-400 font-medium transition ${
-              isScrolled ? "text-black" : "text-white"
-            }`}
-          >
-            Maps
-          </Link>
-          <Link
-            href="/contact"
-            className={`hover:text-primary-400 font-medium transition ${
-              isScrolled ? "text-black" : "text-white"
-            }`}
-          >
-            Contact
-          </Link>
+          <Link href="/map" className={navLinkClass}>MAP</Link>
+          <Link href="/contact" className={navLinkClass}>CONTACT</Link>
         </div>
 
-        {/* Right Side - Auth or Avatar */}
+        {/* Right Side */}
         <div className="flex items-center gap-4">
           {authUser ? (
             <>
               {isDashboardPage && (
                 <Button
                   variant="secondary"
-                  className="bg-primary-600 text-white hover:bg-primary-800"
+                  className="bg-primary-50 text-primary-700 hover:bg-secondary-500 hover:text-white"
                   onClick={() =>
                     router.push(
                       authUser.userRole?.toLowerCase() === "manager"
@@ -388,106 +342,141 @@ const Navbar = () => {
                   {authUser.userRole?.toLowerCase() === "manager" ? (
                     <>
                       <Plus className="h-4 w-4" />
-                      <span className="hidden md:block ml-2">
-                        Add Property
-                      </span>
+                      <span className="ml-2 hidden md:block">Add Property</span>
                     </>
                   ) : (
                     <>
                       <Search className="h-4 w-4" />
-                      <span className="hidden md:block ml-2">
-                        Search Properties
-                      </span>
+                      <span className="ml-2 hidden md:block">Search</span>
                     </>
                   )}
                 </Button>
               )}
-
-              <div className="hidden md:block relative">
-                <MessageCircle
-                  className={`w-6 h-6 cursor-pointer ${
-                    isScrolled ? "text-black" : "text-white"
-                  }`}
-                />
-                <span className="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full"></span>
-              </div>
-
-              <div className="hidden md:block relative">
-                <Bell
-                  className={`w-6 h-6 cursor-pointer ${
-                    isScrolled ? "text-black" : "text-white"
-                  }`}
-                />
-                <span className="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full"></span>
-              </div>
-
+              <MessageCircle className={`hidden md:block w-6 h-6 cursor-pointer ${iconColorClass}`} />
+              <Bell className={`hidden md:block w-6 h-6 cursor-pointer ${iconColorClass}`} />
               <DropdownMenu>
                 <DropdownMenuTrigger className="flex items-center gap-2">
                   <Avatar>
                     <AvatarImage src={authUser.userInfo?.image} />
-                    <AvatarFallback className="bg-primary-600">
-                      {authUser.userRole?.[0].toUpperCase()}
-                    </AvatarFallback>
+                    <AvatarFallback>{authUser.userRole?.[0].toUpperCase()}</AvatarFallback>
                   </Avatar>
-                  <p
-                    className={`hidden md:block ${
-                      isScrolled ? "text-black" : "text-white"
-                    }`}
-                  >
+                  <p className={`hidden md:block font-medium ${iconColorClass}`}>
                     {authUser.userInfo?.name}
                   </p>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="bg-white text-primary-700">
-                  <DropdownMenuItem
-                    onClick={() =>
-                      router.push(
-                        authUser.userRole?.toLowerCase() === "manager"
-                          ? "/managers/properties"
-                          : "/tenants/favorites"
-                      )
-                    }
-                  >
+                  <DropdownMenuItem onClick={() =>
+                    router.push(authUser.userRole?.toLowerCase() === "manager"
+                      ? "/managers/properties"
+                      : "/tenants/favorites"
+                    )}>
                     Go to Dashboard
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem
-                    onClick={() =>
-                      router.push(
-                        `/${authUser.userRole?.toLowerCase()}s/settings`
-                      )
-                    }
-                  >
+                  <DropdownMenuItem onClick={() =>
+                    router.push(`/${authUser.userRole?.toLowerCase()}s/settings`)
+                  }>
                     Settings
                   </DropdownMenuItem>
-                  <DropdownMenuItem onClick={handleSignOut}>
-                    Sign out
-                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={handleSignOut}>Sign out</DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
             </>
           ) : (
             <>
               <Link href="/signin">
-                <Button
-                  variant="outline"
-                  className={`rounded-lg ${
-                    isScrolled
-                      ? "text-black border-black"
-                      : "text-white border-white"
-                  }`}
-                >
-                  Sign In
-                </Button>
+                <Button variant="outline" className={`border ${iconColorClass}`}>Sign In</Button>
               </Link>
               <Link href="/signup">
-                <Button className="bg-primary-600 text-white hover:bg-black rounded-lg">
-                  Sign Up
-                </Button>
+                <Button variant="secondary" className="bg-black text-white">Sign Up</Button>
               </Link>
             </>
           )}
+
+          {/* Mobile menu toggle */}
+          <button className="md:hidden z-[60]" onClick={() => setMenuOpen(!menuOpen)}>
+            {menuOpen ? (
+              <X className={`w-6 h-6 ${iconColorClass}`} />
+            ) : (
+              <Menu className={`w-6 h-6 ${iconColorClass}`} />
+            )}
+          </button>
         </div>
       </div>
+
+      {/* Mobile Menu with AnimatePresence */}
+      <AnimatePresence>
+        {menuOpen && (
+          <>
+            {/* Backdrop Overlay */}
+            <motion.div
+              className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setMenuOpen(false)}
+            />
+
+            {/* Slide-in Menu */}
+            <motion.div
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              className="fixed top-0 right-0 h-full w-[80%] max-w-sm bg-white text-black z-50 px-6 py-8 shadow-lg overflow-y-auto"
+            >
+              <div className="flex justify-end mb-4">
+                <X className="h-6 w-6 cursor-pointer" onClick={() => setMenuOpen(false)} />
+              </div>
+
+              <Link href="/about" onClick={() => setMenuOpen(false)} className="block text-base font-semibold mb-4">About</Link>
+              <Link href="/sold" onClick={() => setMenuOpen(false)} className="block text-base font-semibold mb-4">Sold Products</Link>
+
+              <details className="group mb-4">
+                <summary className="flex justify-between items-center font-semibold cursor-pointer">
+                  Off Plan Projects
+                  <ChevronDown className="h-4 w-4 group-open:rotate-180 transition-transform" />
+                </summary>
+                <div className="ml-4 mt-2 flex flex-col gap-2 text-sm text-gray-700">
+                  {["apartment", "villa", "townhouse", "land"].map((type) => (
+                    <Link key={type} href={`/off-plan/${type}`} onClick={() => setMenuOpen(false)} className="hover:text-primary-500">
+                      {type.charAt(0).toUpperCase() + type.slice(1)}
+                    </Link>
+                  ))}
+                </div>
+              </details>
+
+              <details className="group mb-4">
+                <summary className="flex justify-between items-center font-semibold cursor-pointer">
+                  Residential Plots
+                  <ChevronDown className="h-4 w-4 group-open:rotate-180 transition-transform" />
+                </summary>
+                <div className="ml-4 mt-2 flex flex-col gap-2 text-sm text-gray-700">
+                  <Link href="/residential/luxury-villa" onClick={() => setMenuOpen(false)} className="hover:text-primary-500">Luxury Villa Plot</Link>
+                  <Link href="/residential/building" onClick={() => setMenuOpen(false)} className="hover:text-primary-500">Residential Building Plots</Link>
+                </div>
+              </details>
+
+              <details className="group mb-4">
+                <summary className="flex justify-between items-center font-semibold cursor-pointer">
+                  Commercial Plots
+                  <ChevronDown className="h-4 w-4 group-open:rotate-180 transition-transform" />
+                </summary>
+                <div className="ml-4 mt-2 flex flex-col gap-2 text-sm text-gray-700">
+                  {["building", "labor-camps", "warehouse", "hotel", "industrial", "school-hospital", "other"].map((type) => (
+                    <Link key={type} href={`/commercial/${type}`} onClick={() => setMenuOpen(false)} className="hover:text-primary-500">
+                      {type.replace("-", " ").replace(/\b\w/g, (l) => l.toUpperCase())}
+                    </Link>
+                  ))}
+                </div>
+              </details>
+
+              <Link href="/map" onClick={() => setMenuOpen(false)} className="block text-base font-semibold mb-4">Map</Link>
+              <Link href="/contact" onClick={() => setMenuOpen(false)} className="block text-base font-semibold mb-4">Contact</Link>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

@@ -153,148 +153,122 @@ const CallToActionSection = () => {
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start end", "end start"]
+    offset: ["start end", "end start"],
   });
 
-  // Parallax effects
-  const yBg = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
-  const opacityBg = useTransform(scrollYProgress, [0.3, 0.6, 0.9], [1, 0.8, 0.6]);
-  const scaleText = useTransform(scrollYProgress, [0, 0.5], [1, 1.05]);
+  // Background image effects
+  const yBg = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);
+  const scaleImage = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
+  const opacityOverlay = useTransform(scrollYProgress, [0, 0.5], [0.4, 0.7]);
 
-  // Image reveal effect
-  const imageClipPath = useTransform(
-    scrollYProgress,
-    [0, 0.2],
-    ["inset(0% 0% 0% 0%)", "inset(0% 0% 0% 0%)"]
-  );
+  // Text scale animation
+  const scaleText = useTransform(scrollYProgress, [0, 0.5], [1, 1.03]);
 
   return (
-    <section 
+    <section
       ref={containerRef}
       className="relative py-24 px-4 sm:px-6 lg:px-8 overflow-hidden"
     >
-      {/* Full-width Image Background with Parallax */}
-      <motion.div 
+      {/* Background Section */}
+      <motion.div
         className="relative w-full h-[600px] rounded-xl overflow-hidden"
-        style={{ y: yBg, opacity: opacityBg }}
+        style={{ y: yBg }}
       >
-        {/* Background Image with Reveal Effect */}
-        <motion.div style={{ clipPath: imageClipPath }}>
+        {/* Zooming background image */}
+        <motion.div className="absolute inset-0" style={{ scale: scaleImage }}>
           <Image
-            // src="/about-us.jpg"
-            // alt="Mastermind Real Estate Office"
-            // fill
-            // className="object-cover"
-            // priority
-            src="/hero-i-1.jpg"
+            src="/about.jpeg"
             alt="Mastermind Real Estate Office"
-           fill
-           className="object-cover"
-           priority
+            fill
+            className="object-cover"
+            priority
           />
         </motion.div>
-        
-        {/* Dark Overlay with Scroll-based Opacity */}
-        <motion.div 
+
+        {/* Dark overlay */}
+        <motion.div
           className="absolute inset-0 bg-black"
-          style={{ opacity: useTransform(scrollYProgress, [0, 0.5], [0.4, 0.6]) }}
+          style={{ opacity: opacityOverlay }}
         />
-        
-        {/* Text Content with Scale Effect */}
-        <motion.div 
-          className="relative h-full flex items-center justify-center"
+
+        {/* Text Container */}
+        <motion.div
+          className="relative z-10 h-full flex items-center justify-center"
           style={{ scale: scaleText }}
         >
-          <div className="max-w-4xl mx-auto p-8 text-center">
-            {/* Section Header */}
-            <motion.h2 
-              className="text-3xl md:text-4xl font-bold mb-8 text-white"
-              initial={{ opacity: 0, y: 20 }}
+          <div className="max-w-4xl mx-auto text-center p-8 text-white">
+            <motion.h2
+              className="text-4xl md:text-5xl font-bold mb-8"
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: 0.6 }}
               viewport={{ once: true }}
             >
               A bit about us
             </motion.h2>
 
-            {/* Text Content with Staggered Animation */}
-            <div className="space-y-6 text-white">
-              {/* First Paragraph */}
+            <div className="space-y-6">
               <motion.p
-                className="text-lg md:text-xl leading-relaxed"
-                initial={{ opacity: 0, x: -20 }}
+                className="text-xl md:text-2xl font-semibold"
+                initial={{ opacity: 0, x: -30 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.2 }}
+                transition={{ duration: 0.6 }}
                 viewport={{ once: true }}
               >
-                <strong className="text-xl md:text-2xl font-semibold">
-                  Mastermind Real Estate, Specialist in Lands investments in Dubai.
-                </strong>
+                Mastermind Real Estate, Specialist in Lands investments in Dubai.
               </motion.p>
 
-              {/* Second Paragraph with Scroll-triggered Fade */}
               <motion.p
                 className="text-lg leading-relaxed"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                transition={{ 
-                  delay: 0.3,
-                  opacity: { duration: 0.8, ease: "easeOut" }
-                }}
-                viewport={{ once: true, margin: "0px 0px -100px 0px" }}
-              >
-                A boutique real estate agency and investment advisory company, dedicated to providing a personal service putting ethics, honesty and professionalism first and foremost. Master Mind Real Estate Broker is Specialized in Lands investments in Dubai.
-              </motion.p>
-
-              {/* Third Paragraph with Scroll Progress Animation */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2, duration: 0.8 }}
                 viewport={{ once: true }}
               >
-                <motion.p
-                  className="text-lg leading-relaxed"
-                  style={{
-                    opacity: useTransform(scrollYProgress, [0.4, 0.6], [0, 1])
-                  }}
-                >
-                  We have Lands for Sale across Every Location in Dubai, Be it Villa, Building or Industrial Land. We are Connected with Every Major Developer in Dubai and Having Top Relationship with them.
-                </motion.p>
-              </motion.div>
+                A boutique real estate agency and investment advisory company,
+                dedicated to providing a personal service putting ethics, honesty
+                and professionalism first and foremost. Master Mind Real Estate
+                Broker is Specialized in Lands investments in Dubai.
+              </motion.p>
+
+              <motion.p
+                className="text-lg leading-relaxed"
+                style={{
+                  opacity: useTransform(scrollYProgress, [0.3, 0.6], [0, 1]),
+                }}
+              >
+                We have Lands for Sale across Every Location in Dubai, Be it Villa,
+                Building or Industrial Land. We are Connected with Every Major
+                Developer in Dubai and Having Top Relationship with them.
+              </motion.p>
             </div>
           </div>
         </motion.div>
       </motion.div>
 
-      {/* Floating Elements that Appear on Scroll */}
-      <motion.div 
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-        initial={{ opacity: 0, y: 20 }}
+      {/* Scroll Arrow */}
+      <motion.div
+        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20"
+        initial={{ opacity: 0, y: 10 }}
         whileInView={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.6 }}
-        viewport={{ once: true, margin: "0px 0px -100px 0px" }}
+        transition={{ delay: 0.5 }}
+        viewport={{ once: true }}
       >
         <motion.div
-          animate={{
-            y: [0, -10, 0],
-          }}
-          transition={{
-            duration: 2,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
+          animate={{ y: [0, -10, 0] }}
+          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
         >
-          <svg 
-            className="w-8 h-8 text-white" 
-            fill="none" 
-            stroke="currentColor" 
+          <svg
+            className="w-8 h-8 text-white"
+            fill="none"
+            stroke="currentColor"
             viewBox="0 0 24 24"
           >
-            <path 
-              strokeLinecap="round" 
-              strokeLinejoin="round" 
-              strokeWidth={2} 
-              d="M19 14l-7 7m0 0l-7-7m7 7V3" 
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M19 14l-7 7m0 0l-7-7m7 7V3"
             />
           </svg>
         </motion.div>

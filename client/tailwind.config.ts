@@ -46,6 +46,8 @@ const config: Config = {
   				'900': '#400a0a',
   				'950': '#2c0707'
   			},
+			  darkMode: 'class',
+
   			muted: {
   				DEFAULT: 'hsl(var(--muted))',
   				foreground: 'hsl(var(--muted-foreground))'
