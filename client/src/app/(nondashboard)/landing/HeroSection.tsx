@@ -271,7 +271,7 @@ const HeroSection = () => {
             priority
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw"
           />
-          <div className="absolute inset-0 bg-black bg-opacity-40"></div>
+          {/* Removed the full-screen opacity layer */}
         </motion.div>
 
         {/* Next slide (preloaded) */}
@@ -290,7 +290,7 @@ const HeroSection = () => {
               className="object-cover object-center"
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw"
             />
-            <div className="absolute inset-0 bg-black bg-opacity-60"></div>
+            {/* Removed the full-screen opacity layer */}
           </motion.div>
         )}
       </div>
@@ -303,33 +303,36 @@ const HeroSection = () => {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="w-full max-w-2xl mx-auto md:mx-0"
         >
-          <motion.div
-            key={`title-${currentSlide}`}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5 }}
-            className="text-center md:text-left"
-          >
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-2 leading-tight">
-              {slides[currentSlide].title}
-            </h1>
-            <p className="text-lg sm:text-xl text-white mb-4">
-              {slides[currentSlide].subtitle}
-            </p>
-            
-            <h2 className="text-2xl md:text-3xl font-semibold text-white mt-6 mb-4">
-              {slides[currentSlide].additionalText}
-            </h2>
-            <p className="text-lg text-white mb-6 max-w-lg">
-              {slides[currentSlide].description}
-            </p>
-            <p className="text-white italic mb-8">
-              *** {slides[currentSlide].tagline} ***
-            </p>
-            <Button className="bg-white text-black hover:bg-gray-200 px-8 py-6 text-lg font-semibold">
-              {slides[currentSlide].cta}
-            </Button>
-          </motion.div>
+          {/* Added semi-transparent box behind text */}
+          <div className="bg-black bg-opacity-50 p-8 rounded-lg backdrop-blur-sm">
+            <motion.div
+              key={`title-${currentSlide}`}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
+              className="text-center md:text-left"
+            >
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-2 leading-tight">
+                {slides[currentSlide].title}
+              </h1>
+              <p className="text-lg sm:text-xl text-white mb-4">
+                {slides[currentSlide].subtitle}
+              </p>
+              
+              <h2 className="text-2xl md:text-3xl font-semibold text-white mt-6 mb-4">
+                {slides[currentSlide].additionalText}
+              </h2>
+              <p className="text-lg text-white mb-6 max-w-lg">
+                {slides[currentSlide].description}
+              </p>
+              <p className="text-white italic mb-8">
+                *** {slides[currentSlide].tagline} ***
+              </p>
+              <Button className="bg-white text-black hover:bg-gray-200 px-8 py-6 text-lg font-semibold">
+                {slides[currentSlide].cta}
+              </Button>
+            </motion.div>
+          </div>
         </motion.div>
       </div>
     </div>
