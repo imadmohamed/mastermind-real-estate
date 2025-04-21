@@ -271,7 +271,6 @@ const HeroSection = () => {
             priority
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw"
           />
-          {/* Removed the full-screen opacity layer */}
         </motion.div>
 
         {/* Next slide (preloaded) */}
@@ -290,7 +289,6 @@ const HeroSection = () => {
               className="object-cover object-center"
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw"
             />
-            {/* Removed the full-screen opacity layer */}
           </motion.div>
         )}
       </div>
@@ -301,38 +299,39 @@ const HeroSection = () => {
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="w-full max-w-2xl mx-auto md:mx-0"
+          className="w-full max-w-3xl mx-0 md:ml-16 lg:ml-24"
         >
-          {/* Added semi-transparent box behind text */}
-          <div className="bg-black bg-opacity-50 p-8 rounded-lg backdrop-blur-sm">
-            <motion.div
-              key={`title-${currentSlide}`}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5 }}
-              className="text-center md:text-left"
-            >
-              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-2 leading-tight">
-                {slides[currentSlide].title}
-              </h1>
+          <motion.div
+            key={`title-${currentSlide}`}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+            className="text-left"
+          >
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-4 leading-tight">
+              {slides[currentSlide].title}
+            </h1>
+            
+            {/* Semi-transparent box for specific elements */}
+            <div className="bg-black bg-opacity-50 p-6 rounded-lg backdrop-blur-sm max-w-2xl">
               <p className="text-lg sm:text-xl text-white mb-4">
                 {slides[currentSlide].subtitle}
               </p>
               
-              <h2 className="text-2xl md:text-3xl font-semibold text-white mt-6 mb-4">
+              <h2 className="text-2xl md:text-3xl font-semibold text-white mt-4 mb-4">
                 {slides[currentSlide].additionalText}
               </h2>
-              <p className="text-lg text-white mb-6 max-w-lg">
+              <p className="text-lg text-white mb-4">
                 {slides[currentSlide].description}
               </p>
-              <p className="text-white italic mb-8">
+              <p className="text-white italic mb-6">
                 *** {slides[currentSlide].tagline} ***
               </p>
-              <Button className="bg-white text-black hover:bg-gray-200 px-8 py-6 text-lg font-semibold">
+              <Button className="bg-white text-black hover:bg-gray-200 px-8 py-4 text-lg font-semibold">
                 {slides[currentSlide].cta}
               </Button>
-            </motion.div>
-          </div>
+            </div>
+          </motion.div>
         </motion.div>
       </div>
     </div>
