@@ -185,7 +185,7 @@
 import { NAVBAR_HEIGHT } from "@/lib/constants";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "./ui/button";
 import { useGetAuthUserQuery } from "@/state/api";
 import { usePathname, useRouter } from "next/navigation";
@@ -205,6 +205,7 @@ const Navbar = () => {
   const { data: authUser } = useGetAuthUserQuery();
   const router = useRouter();
   const pathname = usePathname();
+  const [isScrolled, setIsScrolled] = useState(false);
 
   const isDashboardPage =
     pathname.includes("/managers") || pathname.includes("/tenants");
@@ -214,13 +215,23 @@ const Navbar = () => {
     window.location.href = "/";
   };
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <div
-      className="fixed top-0 left-0 w-full z-50"
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
+        isScrolled ? "bg-white shadow-md py-1" : "bg-transparent py-4"
+      }`}
       style={{ height: `${NAVBAR_HEIGHT}px` }}
     >
-      <div className="flex justify-between items-center w-full px-4 text-white bg-transparent">
-        {/* Left Section - Logo and Dashboard Button */}
+      <div className="flex justify-between items-center w-full px-6 transition-all duration-300">
+        {/* Left Section */}
         <div className="flex items-center gap-4">
           {isDashboardPage && (
             <div className="md:hidden">
@@ -229,114 +240,143 @@ const Navbar = () => {
           )}
           <Link
             href="/"
-            className="cursor-pointer hover:!text-primary-300"
+            className={`cursor-pointer ${
+              isScrolled ? "text-black" : "text-white"
+            }`}
             scroll={false}
           >
             <div className="flex items-center gap-3">
               <Image
-                src="/logo1.svg"
-                alt="Master Minde Real Estate Logo"
-                width={96}
-                height={96}
-                className="w-24 h-24"
+                src={isScrolled ? "/logo.svg" : "/logo1.svg"}
+                alt="Master Mind Real Estate Logo"
+                width={isScrolled ? 110 : 140}
+                height={isScrolled ? 110 : 140}
+                className="transition-all duration-300"
               />
             </div>
           </Link>
         </div>
 
-        {/* Center Section - Navigation Categories */}
-        <div className="hidden md:flex items-center justify-center absolute left-1/2 transform -translate-x-1/2">
-          <div className="flex items-center gap-6">
-            <Link href="/about" className="hover:text-primary-300">
-              About Us
-            </Link>
-            <Link href="/sold" className="hover:text-primary-300">
-              Sold Products
-            </Link>
+        {/* Center Navigation */}
+        <div className="hidden md:flex items-center gap-8">
+          <Link
+            href="/about"
+            className={`hover:text-primary-400 font-medium transition ${
+              isScrolled ? "text-black" : "text-white"
+            }`}
+          >
+            ABOUT
+          </Link>
+          <Link
+            href="/sold"
+            className={`hover:text-primary-400 font-medium transition ${
+              isScrolled ? "text-black" : "text-white"
+            }`}
+          >
+            SOLD PRODUCTS
+          </Link>
 
-            <DropdownMenu>
-              <DropdownMenuTrigger className="flex items-center gap-1 hover:text-primary-300 focus:outline-none">
-                Off Plan Projects <ChevronDown className="h-4 w-4" />
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="bg-white text-primary-700 min-w-[200px]">
-                <DropdownMenuItem asChild>
-                  <Link href="/off-plan/apartment">Apartment</Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link href="/off-plan/villa">Villa</Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link href="/off-plan/townhouse">Townhouse</Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link href="/off-plan/land">Land</Link>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+          <DropdownMenu>
+            <DropdownMenuTrigger
+              className={`flex items-center gap-1 font-medium hover:text-primary-400 transition ${
+                isScrolled ? "text-black" : "text-white"
+              }`}
+            >
+              Off Plan Projects <ChevronDown className="h-4 w-4" />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="bg-white text-primary-700 min-w-[200px]">
+              <DropdownMenuItem asChild>
+                <Link href="/off-plan/apartment">Apartment</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/off-plan/villa">Villa</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/off-plan/townhouse">Townhouse</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/off-plan/land">Land</Link>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
 
-            <DropdownMenu>
-              <DropdownMenuTrigger className="flex items-center gap-1 hover:text-primary-300 focus:outline-none">
-                Residential Plots <ChevronDown className="h-4 w-4" />
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="bg-white text-primary-700 min-w-[220px]">
-                <DropdownMenuItem asChild>
-                  <Link href="/residential/luxury-villa">Luxury Villa Plot</Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link href="/residential/building">
-                    Residential Building Plots
-                  </Link>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+          <DropdownMenu>
+            <DropdownMenuTrigger
+              className={`flex items-center gap-1 font-medium hover:text-primary-400 transition ${
+                isScrolled ? "text-black" : "text-white"
+              }`}
+            >
+              Residential Plots <ChevronDown className="h-4 w-4" />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="bg-white text-primary-700 min-w-[220px]">
+              <DropdownMenuItem asChild>
+                <Link href="/residential/luxury-villa">Luxury Villa Plot</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/residential/building">Residential Building Plots</Link>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
 
-            <DropdownMenu>
-              <DropdownMenuTrigger className="flex items-center gap-1 hover:text-primary-300 focus:outline-none">
-                Commercial Plots <ChevronDown className="h-4 w-4" />
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="bg-white text-primary-700 min-w-[250px]">
-                <DropdownMenuItem asChild>
-                  <Link href="/commercial/building">
-                    Commercial Building Plots
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link href="/commercial/labor-camps">Labor Camps Plots</Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link href="/commercial/warehouse">Warehouse Plots</Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link href="/commercial/hotel">Hotel Plots</Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link href="/commercial/industrial">Industrial Plots</Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link href="/commercial/school-hospital">
-                    School/Hospital Plot
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link href="/commercial/other">Other Commercial Plot</Link>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+          <DropdownMenu>
+            <DropdownMenuTrigger
+              className={`flex items-center gap-1 font-medium hover:text-primary-400 transition ${
+                isScrolled ? "text-black" : "text-white"
+              }`}
+            >
+              Commercial Plots <ChevronDown className="h-4 w-4" />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="bg-white text-primary-700 min-w-[250px]">
+              <DropdownMenuItem asChild>
+                <Link href="/commercial/building">Commercial Building Plots</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/commercial/labor-camps">Labor Camps Plots</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/commercial/warehouse">Warehouse Plots</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/commercial/hotel">Hotel Plots</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/commercial/industrial">Industrial Plots</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/commercial/school-hospital">School/Hospital Plot</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/commercial/other">Other Commercial Plot</Link>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
 
-            <Link href="/contact" className="hover:text-primary-300">
-              Contact
-            </Link>
-          </div>
+          <Link
+            href="/contact"
+            className={`hover:text-primary-400 font-medium transition ${
+              isScrolled ? "text-black" : "text-white"
+            }`}
+          >
+            Maps
+          </Link>
+          <Link
+            href="/contact"
+            className={`hover:text-primary-400 font-medium transition ${
+              isScrolled ? "text-black" : "text-white"
+            }`}
+          >
+            Contact
+          </Link>
         </div>
 
-        {/* Right Section - User Controls */}
-        <div className="flex items-center gap-5">
+        {/* Right Side - Auth or Avatar */}
+        <div className="flex items-center gap-4">
           {authUser ? (
             <>
               {isDashboardPage && (
                 <Button
                   variant="secondary"
-                  className="bg-primary-50 text-primary-700 hover:bg-secondary-500 hover:text-primary-50"
+                  className="bg-primary-600 text-white hover:bg-primary-800"
                   onClick={() =>
                     router.push(
                       authUser.userRole?.toLowerCase() === "manager"
@@ -349,7 +389,7 @@ const Navbar = () => {
                     <>
                       <Plus className="h-4 w-4" />
                       <span className="hidden md:block ml-2">
-                        Add New Property
+                        Add Property
                       </span>
                     </>
                   ) : (
@@ -363,56 +403,63 @@ const Navbar = () => {
                 </Button>
               )}
 
-              <div className="relative hidden md:block">
-                <MessageCircle className="w-6 h-6 cursor-pointer text-primary-200 hover:text-primary-400" />
-                <span className="absolute top-0 right-0 w-2 h-2 bg-secondary-700 rounded-full"></span>
+              <div className="hidden md:block relative">
+                <MessageCircle
+                  className={`w-6 h-6 cursor-pointer ${
+                    isScrolled ? "text-black" : "text-white"
+                  }`}
+                />
+                <span className="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full"></span>
               </div>
-              <div className="relative hidden md:block">
-                <Bell className="w-6 h-6 cursor-pointer text-primary-200 hover:text-primary-400" />
-                <span className="absolute top-0 right-0 w-2 h-2 bg-secondary-700 rounded-full"></span>
+
+              <div className="hidden md:block relative">
+                <Bell
+                  className={`w-6 h-6 cursor-pointer ${
+                    isScrolled ? "text-black" : "text-white"
+                  }`}
+                />
+                <span className="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full"></span>
               </div>
 
               <DropdownMenu>
-                <DropdownMenuTrigger className="flex items-center gap-2 focus:outline-none">
+                <DropdownMenuTrigger className="flex items-center gap-2">
                   <Avatar>
                     <AvatarImage src={authUser.userInfo?.image} />
                     <AvatarFallback className="bg-primary-600">
                       {authUser.userRole?.[0].toUpperCase()}
                     </AvatarFallback>
                   </Avatar>
-                  <p className="text-primary-200 hidden md:block">
+                  <p
+                    className={`hidden md:block ${
+                      isScrolled ? "text-black" : "text-white"
+                    }`}
+                  >
                     {authUser.userInfo?.name}
                   </p>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="bg-white text-primary-700">
                   <DropdownMenuItem
-                    className="cursor-pointer hover:!bg-primary-700 hover:!text-primary-100 font-bold"
                     onClick={() =>
                       router.push(
                         authUser.userRole?.toLowerCase() === "manager"
                           ? "/managers/properties"
-                          : "/tenants/favorites",
-                        { scroll: false }
+                          : "/tenants/favorites"
                       )
                     }
                   >
                     Go to Dashboard
                   </DropdownMenuItem>
-                  <DropdownMenuSeparator className="bg-primary-200" />
+                  <DropdownMenuSeparator />
                   <DropdownMenuItem
-                    className="cursor-pointer hover:!bg-primary-700 hover:!text-primary-100"
                     onClick={() =>
-                      router.push(`/${authUser.userRole?.toLowerCase()}s/settings`, {
-                        scroll: false,
-                      })
+                      router.push(
+                        `/${authUser.userRole?.toLowerCase()}s/settings`
+                      )
                     }
                   >
                     Settings
                   </DropdownMenuItem>
-                  <DropdownMenuItem
-                    className="cursor-pointer hover:!bg-primary-700 hover:!text-primary-100"
-                    onClick={handleSignOut}
-                  >
+                  <DropdownMenuItem onClick={handleSignOut}>
                     Sign out
                   </DropdownMenuItem>
                 </DropdownMenuContent>
@@ -423,16 +470,17 @@ const Navbar = () => {
               <Link href="/signin">
                 <Button
                   variant="outline"
-                  className="text-white border-white bg-transparent hover:bg-white hover:text-primary-700 rounded-lg"
+                  className={`rounded-lg ${
+                    isScrolled
+                      ? "text-black border-black"
+                      : "text-white border-white"
+                  }`}
                 >
                   Sign In
                 </Button>
               </Link>
               <Link href="/signup">
-                <Button
-                  variant="secondary"
-                  className="text-white bg-secondary-600 hover:bg-white hover:text-primary-700 rounded-lg"
-                >
+                <Button className="bg-primary-600 text-white hover:bg-black rounded-lg">
                   Sign Up
                 </Button>
               </Link>
