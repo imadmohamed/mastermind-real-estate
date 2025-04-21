@@ -293,44 +293,49 @@ const HeroSection = () => {
         )}
       </div>
 
-      {/* Content - responsive positioning */}
-      <div className="absolute inset-0 flex items-center px-4 md:px-16 pt-16 md:pt-0">
+      {/* Content - centered alignment */}
+      <div className="absolute inset-0 flex flex-col items-center justify-center px-4">
         <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="w-full max-w-3xl mx-0 md:ml-16 lg:ml-24"
+          className="w-full max-w-4xl text-center"
         >
+          {/* Title outside the box */}
           <motion.div
             key={`title-${currentSlide}`}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
-            className="text-left"
           >
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-4 leading-tight">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-6 leading-tight">
               {slides[currentSlide].title}
             </h1>
+          </motion.div>
+
+          {/* Semi-transparent box for other content */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="bg-black bg-opacity-50 p-8 rounded-lg backdrop-blur-sm mx-auto max-w-2xl"
+          >
+            <p className="text-lg sm:text-xl text-white mb-4">
+              {slides[currentSlide].subtitle}
+            </p>
             
-            {/* Semi-transparent box for specific elements */}
-            <div className="bg-black bg-opacity-50 p-6 rounded-lg backdrop-blur-sm max-w-2xl">
-              <p className="text-lg sm:text-xl text-white mb-4">
-                {slides[currentSlide].subtitle}
-              </p>
-              
-              <h2 className="text-2xl md:text-3xl font-semibold text-white mt-4 mb-4">
-                {slides[currentSlide].additionalText}
-              </h2>
-              <p className="text-lg text-white mb-4">
-                {slides[currentSlide].description}
-              </p>
-              <p className="text-white italic mb-6">
-                *** {slides[currentSlide].tagline} ***
-              </p>
-              <Button className="bg-white text-black hover:bg-gray-200 px-8 py-4 text-lg font-semibold">
-                {slides[currentSlide].cta}
-              </Button>
-            </div>
+            <h2 className="text-2xl md:text-3xl font-semibold text-white mt-4 mb-4">
+              {slides[currentSlide].additionalText}
+            </h2>
+            <p className="text-lg text-white mb-4">
+              {slides[currentSlide].description}
+            </p>
+            <p className="text-white italic mb-6">
+              *** {slides[currentSlide].tagline} ***
+            </p>
+            <Button className="bg-white text-black hover:bg-gray-200 px-8 py-4 text-lg font-semibold">
+              {slides[currentSlide].cta}
+            </Button>
           </motion.div>
         </motion.div>
       </div>
