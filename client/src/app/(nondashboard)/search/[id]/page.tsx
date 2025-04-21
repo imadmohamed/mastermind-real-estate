@@ -9,6 +9,7 @@ import PropertyDetails from "./PropertyDetails";
 import PropertyLocation from "./PropertyLocation";
 import ContactWidget from "./ContactWidget";
 import ApplicationModal from "./ApplicationModal";
+import { useGetPropertyQuery } from "@/state/api";
 
 const SingleListing = () => {
   const { id } = useParams();
@@ -16,10 +17,16 @@ const SingleListing = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { data: authUser } = useGetAuthUserQuery();
 
+  const {
+      data: property,
+      isError,
+      isLoading,
+    } = useGetPropertyQuery(propertyId);
+console.log(property);
   return (
     <div>
       <ImagePreviews
-        images={["/singlelisting-2.jpg", "/singlelisting-3.jpg", "/landing-i4.png"]}
+        images={property?.photoUrls? property.photoUrls : []}
       />
       <div className="flex flex-col md:flex-row justify-center gap-10 mx-10 md:w-2/3 md:mx-auto mt-16 mb-8">
         <div className="order-2 md:order-1">

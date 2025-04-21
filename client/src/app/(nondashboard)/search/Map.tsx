@@ -60,6 +60,7 @@ const Map = () => {
 };
 
 const createPropertyMarker = (property: Property, map: mapboxgl.Map) => {
+  console.log(property);
   const marker = new mapboxgl.Marker()
     .setLngLat([
       property.location.coordinates.longitude,
@@ -68,17 +69,19 @@ const createPropertyMarker = (property: Property, map: mapboxgl.Map) => {
     .setPopup(
       new mapboxgl.Popup().setHTML(
         `
-        <div class="marker-popup">
-          <div class="marker-popup-image"></div>
-          <div>
-            <a href="/search/${property.id}" target="_blank" class="marker-popup-title">${property.name}</a>
-            <p class="marker-popup-price">
-              AED ${property.pricePerMonth}
-              <span class="marker-popup-price-unit"> want to add image</span>
-            </p>
-          </div>
-        </div>
-        `
+ <div class="marker-popup">
+    <div class="marker-popup-image">
+        ${property.photoUrls && property.photoUrls.length > 0 ? `<img src="${property.photoUrls[0]}" alt="${property.name}" class="marker-popup-image" />` : ''}
+    </div>
+
+
+    <div> <a href="/search/${property.id}" target="_blank" class="marker-popup-title">${property.name}  </a>
+      <p class="marker-popup-price"> AED ${property.pricePerMonth}
+      <span class="marker-popup-price-unit"> </span>
+      </p>
+    </div>
+ </div>
+`
       )
     )
     .addTo(map);
