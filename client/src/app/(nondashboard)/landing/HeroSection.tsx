@@ -301,38 +301,72 @@ const HeroSection = () => {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="w-full max-w-4xl text-center"
         >
-          {/* Title outside the box */}
+          {/* Title */}
           <motion.div
             key={`title-${currentSlide}`}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
           >
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-6 leading-tight">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-4 leading-tight">
               {slides[currentSlide].title}
             </h1>
           </motion.div>
 
-          {/* Semi-transparent box for other content */}
+          {/* Subtitle with opacity */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="bg-black bg-opacity-50 px-4 py-2 rounded-lg inline-block mb-4"
+          >
+            <p className="text-lg sm:text-xl text-white">
+              {slides[currentSlide].subtitle}
+            </p>
+          </motion.div>
+
+          {/* Additional text with opacity */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.3 }}
-            className="bg-black bg-opacity-50 p-8 rounded-lg backdrop-blur-sm mx-auto max-w-2xl"
+            className="bg-black bg-opacity-50 px-4 py-2 rounded-lg inline-block mb-4"
           >
-            <p className="text-lg sm:text-xl text-white mb-4">
-              {slides[currentSlide].subtitle}
-            </p>
-            
-            <h2 className="text-2xl md:text-3xl font-semibold text-white mt-4 mb-4">
+            <h2 className="text-2xl md:text-3xl font-semibold text-white">
               {slides[currentSlide].additionalText}
             </h2>
-            <p className="text-lg text-white mb-4">
+          </motion.div>
+
+          {/* Description (full opacity) */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="mb-4"
+          >
+            <p className="text-lg text-white max-w-2xl mx-auto">
               {slides[currentSlide].description}
             </p>
-            <p className="text-white italic mb-6">
+          </motion.div>
+
+          {/* Tagline (full opacity) */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.5 }}
+            className="mb-6"
+          >
+            <p className="text-white italic">
               *** {slides[currentSlide].tagline} ***
             </p>
+          </motion.div>
+
+          {/* CTA Button (full opacity) */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.6 }}
+          >
             <Button className="bg-white text-black hover:bg-gray-200 px-8 py-4 text-lg font-semibold">
               {slides[currentSlide].cta}
             </Button>
