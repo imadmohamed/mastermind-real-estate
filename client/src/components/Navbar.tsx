@@ -265,7 +265,7 @@ const Navbar = () => {
         {/* Desktop Nav */}
         <div className="hidden md:flex gap-6 items-center">
           <Link href="/about" className={navLinkClass}>ABOUT</Link>
-          <Link href="/sold" className={navLinkClass}>SOLD PRODUCTS</Link>
+          <Link href="/sosoldProperty" className={navLinkClass}>SOLD PRODUCTS</Link>
 
           <DropdownMenu>
             <DropdownMenuTrigger className={dropdownTriggerClass}>
