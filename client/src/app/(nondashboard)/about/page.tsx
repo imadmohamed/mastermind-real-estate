@@ -1,68 +1,80 @@
-// app/about/page.tsx (Next.js 14 App Router)
-
 "use client";
 
-import { motion } from "framer-motion";
 import Image from "next/image";
-import { FaQuoteLeft } from "react-icons/fa";
+import { motion } from "framer-motion";
 
 export default function AboutPage() {
   return (
-    <main className="min-h-screen bg-black text-white relative overflow-hidden">
-      {/* Parallax Background */}
-      <div className="absolute top-0 left-0 w-full h-[80vh] -z-10 bg-fixed bg-center bg-cover bg-no-repeat brightness-50"
-        style={{ backgroundImage: `url('/images/about-bg.jpg')` }}
-      ></div>
+    <main className="bg-white text-black">
+      {/* 🔥 Top Banner Image - covers behind navbar */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1 }}
+        className="w-full h-[50vh] relative -mt-20" // lift banner up to overlap navbar
+      >
+        <Image
+          src="/aboutus-baner.jpg" // <-- your banner image
+          alt="About Banner"
+          fill
+          className="object-cover brightness-75"
+          priority
+        />
+        <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
+          <h1 className="text-4xl md:text-5xl font-bold text-white drop-shadow-lg">
+            About Mastermind Real Estate
+          </h1>
+        </div>
+      </motion.div>
 
-      {/* Intro Section */}
-      <section className="h-[80vh] flex items-center justify-center">
-        <motion.h1
-          initial={{ opacity: 0, y: 80 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
-          className="text-5xl md:text-7xl font-extrabold text-white text-center"
-        >
-          Who We Are
-        </motion.h1>
-      </section>
-
-      {/* About Section */}
-      <section className="py-20 px-6 max-w-5xl mx-auto space-y-12">
-        <motion.p
-          initial={{ opacity: 0, x: -50 }}
+      {/* Content Section */}
+      <div className="pt-16 pb-20 px-6 md:px-20 max-w-7xl mx-auto flex flex-col md:flex-row gap-12 items-start">
+        {/* Left Column */}
+        <motion.div
+          initial={{ opacity: 0, x: -30 }}
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-lg leading-relaxed text-gray-300"
+          className="flex-1 space-y-6"
         >
-          At <span className="text-pink-400 font-semibold">GlowHouse</span>, we blend fashion with soul. We're more than just a brand — we’re a lifestyle. Our mission is to empower the trendsetters, the creators, and the rule-breakers with bold, sustainable, and expressive designs.
-        </motion.p>
+          <h4 className="text-lg font-medium text-gray-500">About Us</h4>
+          <h2 className="text-4xl md:text-5xl font-extrabold text-black">
+            Mastermind Real Estate
+          </h2>
+          <p className="text-gray-700 text-lg leading-relaxed">
+            A boutique real estate agency and investment advisory company,
+            dedicated to providing a personal service putting ethics, honesty and
+            professionalism first and foremost. Master Mind Real Estate Broker is
+            Specialized in Lands investments in Dubai. We have Lands for Sale across
+            Every Location in Dubai, Be it Villa , Building or Industrial Land.
+          </p>
+          <p className="text-gray-700 text-lg leading-relaxed">
+            We are Connected with Every Major Developer in Dubai and Having Top
+            Relationship with them. As a company that has been in primary existence
+            in Dubai's property sector, we have maintained long-term relationships
+            with our clients and can confidently say, in a position to offer
+            customers with the best source of Lands properties.
+          </p>
+        </motion.div>
 
-        {/* CEO Spotlight */}
+        {/* Right Column: CEO Image */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.9 }}
-          className="flex flex-col md:flex-row items-center gap-8 bg-white/5 backdrop-blur-xl rounded-2xl p-8"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="flex-1 flex flex-col items-center"
         >
           <Image
-            src="/images/ceo.jpg"
-            alt="CEO"
-            width={200}
-            height={200}
-            className="rounded-full object-cover border-4 border-white"
+            src="/CEO-Picture.jpeg" // <-- your CEO image
+            alt="Rahul Manuja"
+            width={400}
+            height={500}
+            className="rounded-xl shadow-lg object-cover"
           />
-          <div className="text-left space-y-4">
-            <h2 className="text-3xl font-bold text-white">Ayla Moreno</h2>
-            <p className="text-gray-300">
-              Founder & Creative Director. Ayla built GlowHouse from the ground up — turning streetwear into high-art. She believes fashion should be fearless, inclusive, and unforgettable.
-            </p>
-            <div className="flex items-center text-pink-400 gap-2">
-              <FaQuoteLeft />
-              <em>"Wear your energy. Not just your outfit."</em>
-            </div>
-          </div>
+          <p className="mt-4 text-lg font-semibold text-center">
+            Rahul Manuja, CEO
+          </p>
         </motion.div>
-      </section>
+      </div>
     </main>
   );
 }
