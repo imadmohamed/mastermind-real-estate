@@ -6,25 +6,27 @@ import { motion } from "framer-motion";
 export default function AboutPage() {
   return (
     <main className="bg-white text-black">
-      {/* 🔥 Top Banner Image - covers behind navbar */}
+      {/* 🔥 Top Banner Image - with bottom-focused view */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
-        className="w-full h-[50vh] relative -mt-20" // lift banner up to overlap navbar
+        className="w-full h-[50vh] relative -mt-20"
       >
         <Image
           src="/aboutus-baner.jpg" // <-- your banner image
           alt="About Banner"
           fill
-          className="object-cover brightness-75"
+          className="object-cover object-[center_80%] brightness-75" // 👈 focuses on bottom
           priority
         />
-        <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
-          <h1 className="text-4xl md:text-5xl font-bold text-white drop-shadow-lg">
-            About Mastermind Real Estate
-          </h1>
-        </div>
+        {/* ✅ Text centered over the banner */}
+        <div className="hidden md:flex absolute inset-0 bg-black/20 items-center justify-center">
+  <h1 className="text-4xl md:text-5xl font-bold text-white drop-shadow-lg text-center">
+    About Mastermind Real Estate
+  </h1>
+</div>
+
       </motion.div>
 
       {/* Content Section */}
@@ -44,15 +46,15 @@ export default function AboutPage() {
             A boutique real estate agency and investment advisory company,
             dedicated to providing a personal service putting ethics, honesty and
             professionalism first and foremost. Master Mind Real Estate Broker is
-            Specialized in Lands investments in Dubai. We have Lands for Sale across
-            Every Location in Dubai, Be it Villa , Building or Industrial Land.
+            specialized in land investments in Dubai. We have lands for sale across
+            every location in Dubai, be it villa, building, or industrial land.
           </p>
           <p className="text-gray-700 text-lg leading-relaxed">
-            We are Connected with Every Major Developer in Dubai and Having Top
-            Relationship with them. As a company that has been in primary existence
+            We are connected with every major developer in Dubai and have top
+            relationships with them. As a company that has been a primary presence
             in Dubai's property sector, we have maintained long-term relationships
-            with our clients and can confidently say, in a position to offer
-            customers with the best source of Lands properties.
+            with our clients and can confidently say we're in a position to offer
+            customers the best source of land properties.
           </p>
         </motion.div>
 
@@ -64,7 +66,7 @@ export default function AboutPage() {
           className="flex-1 flex flex-col items-center"
         >
           <Image
-            src="/CEO-Picture.jpeg" // <-- your CEO image
+            src="/CEO-Picture.jpeg"
             alt="Rahul Manuja"
             width={400}
             height={500}
