@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
+import FooterSection from "../landing/FooterSection";
 
 export default function AboutPage() {
   return (
@@ -22,10 +23,10 @@ export default function AboutPage() {
         />
         {/* ✅ Text centered over the banner */}
         <div className="hidden md:flex absolute inset-0 bg-black/20 items-center justify-center">
-  <h1 className="text-4xl md:text-5xl font-bold text-white drop-shadow-lg text-center">
-    About Mastermind Real Estate
-  </h1>
-</div>
+            <h1 className="text-4xl md:text-5xl font-bold text-white drop-shadow-lg text-center">
+                About Mastermind Real Estate
+            </h1>
+        </div>
 
       </motion.div>
 
@@ -77,6 +78,7 @@ export default function AboutPage() {
           </p>
         </motion.div>
       </div>
+      <FooterSection />
     </main>
   );
 }
