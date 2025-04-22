@@ -264,8 +264,10 @@ const Navbar = () => {
 
         {/* Desktop Nav */}
         <div className="hidden md:flex gap-6 items-center">
+        <Link href="/" className={navLinkClass}>HOME</Link>
+
           <Link href="/about" className={navLinkClass}>ABOUT</Link>
-          <Link href="/sosoldProperty" className={navLinkClass}>SOLD PRODUCTS</Link>
+          <Link href="/soldproperties" className={navLinkClass}>SOLD PROPERTIES</Link>
 
           <DropdownMenu>
             <DropdownMenuTrigger className={dropdownTriggerClass}>
@@ -319,7 +321,21 @@ const Navbar = () => {
             </DropdownMenuContent>
           </DropdownMenu>
 
-          <Link href="/map" className={navLinkClass}>MAP</Link>
+
+          <DropdownMenu>
+            <DropdownMenuTrigger className={dropdownTriggerClass}>
+              MAPS <ChevronDown className="h-4 w-4" />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="bg-white text-primary-700 min-w-[200px]">
+              <DropdownMenuItem asChild>
+                <Link href="/residential/luxury-villa">Map View</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/search">Our Properties</Link>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+
           <Link href="/contact" className={navLinkClass}>CONTACT</Link>
         </div>
 

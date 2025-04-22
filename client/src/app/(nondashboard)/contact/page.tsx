@@ -3,8 +3,9 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { FaWhatsapp } from "react-icons/fa";
+import { FaWhatsapp, FaPhoneAlt } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
+import FooterSection from "../landing/FooterSection";
 
 export default function ContactUsPage() {
   const [language, setLanguage] = useState<"en" | "ar">("en");
@@ -34,17 +35,17 @@ export default function ContactUsPage() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowPopup(true);
-    }, 500); // slight delay on page load
+    }, 500);
     return () => clearTimeout(timer);
   }, []);
 
   return (
     <main dir={isArabic ? "rtl" : "ltr"} className="bg-white text-black relative">
 
-      {/* 🌍 Language Popup Selector */}
+      {/* 🌍 Transparent Language Popup Selector */}
       {showPopup && (
         <div className="fixed inset-0 bg-black/30 z-50 flex items-center justify-center px-4">
-          <div className="bg-white rounded-xl shadow-2xl p-6 max-w-xs w-full relative text-center">
+          <div className="bg-white/70 backdrop-blur-md rounded-xl shadow-2xl p-6 max-w-xs w-full relative text-center">
             <button
               onClick={() => setShowPopup(false)}
               className="absolute top-2 right-2 text-gray-500 hover:text-black text-xl"
@@ -76,18 +77,6 @@ export default function ContactUsPage() {
         </div>
       )}
 
-      {/* 🌍 Floating Language Toggle (left-center after popup) */}
-      {!showPopup && (
-        <div className="fixed top-1/2 left-2 -translate-y-1/2 z-40">
-          <button
-            onClick={() => setLanguage(language === "en" ? "ar" : "en")}
-            className="bg-black text-white px-4 py-2 rounded-full shadow-md text-sm hover:bg-gray-800"
-          >
-            {language === "en" ? "AR" : "EN"}
-          </button>
-        </div>
-      )}
-
       {/* 🔝 Banner Section */}
       <motion.div
         initial={{ opacity: 0 }}
@@ -96,10 +85,10 @@ export default function ContactUsPage() {
         className="w-full h-[50vh] relative -mt-20"
       >
         <Image
-          src="/contact-banner.jpg"
+          src="/hero-i-2.jpg"
           alt="Contact Banner"
           fill
-          className="object-cover object-[center_80%] brightness-75"
+          className="object-cover object-[center_35%] brightness-75"
           priority
         />
         <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
@@ -154,7 +143,7 @@ export default function ContactUsPage() {
           className="flex justify-center"
         >
           <Image
-            src="/contact-side.jpg"
+            src="/aboutus-baner.jpg"
             alt="Contact Visual"
             width={500}
             height={500}
@@ -163,15 +152,39 @@ export default function ContactUsPage() {
         </motion.div>
       </div>
 
-      {/* 💬 WhatsApp Floating Icon */}
-      <a
-        href="https://wa.me/971501234567"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="fixed bottom-6 right-6 z-50 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg flex items-center justify-center"
-      >
-        <FaWhatsapp className="text-2xl" />
-      </a>
+      {/* 🌐 Floating Buttons (right center) */}
+      {!showPopup && (
+        <div className="fixed top-1/2 right-4 -translate-y-1/2 z-40 flex flex-col items-end gap-4">
+          {/* Language Toggle */}
+          <button
+            onClick={() => setLanguage(language === "en" ? "ar" : "en")}
+            className="bg-black text-white px-4 py-2 rounded-full shadow-md text-sm hover:bg-gray-800"
+          >
+            {language === "en" ? "AR" : "EN"}
+          </button>
+
+          {/* WhatsApp */}
+          <a
+            href="https://wa.me/971509502715"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg"
+          >
+            <FaWhatsapp className="text-2xl" />
+          </a>
+
+          {/* Call Button */}
+          <a
+            href="tel:+971509502715"
+            className="bg-blue-600 hover:bg-blue-700 text-white p-4 rounded-full shadow-lg"
+          >
+            <FaPhoneAlt className="text-xl" />
+          </a>
+        </div>
+
+      )}
+        <FooterSection/>
+
     </main>
   );
 }
