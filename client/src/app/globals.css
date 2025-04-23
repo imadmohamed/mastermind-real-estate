@@ -19,6 +19,21 @@ body,
   @apply dark:bg-black;
 }
 
+html, body, #__next {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+/* Navigation styling */
+nav a {
+  @apply text-gray-800 hover:text-blue-600 transition-colors;
+}
+
+/* Prevent scrollbar jumping */
+html {
+  overflow-y: scroll;
+}
 @layer base {
   :root {
     --background: 0 0% 98%;

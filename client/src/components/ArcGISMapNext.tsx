@@ -223,8 +223,8 @@ const ArcGISMapNext = () => {
           // Point
           const point = {
             type: 'point',
-            longitude: 55.296249,
-            latitude: 25.2048,
+            longitude: 0,
+            latitude: 0,
           };
 
           const simpleMarkerSymbol = {
@@ -288,7 +288,10 @@ const ArcGISMapNext = () => {
 
               
             ],
+            
           };
+
+          
 
           const simpleFillSymbol = {
             type: 'simple-fill',
