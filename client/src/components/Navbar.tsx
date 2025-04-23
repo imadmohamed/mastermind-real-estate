@@ -241,26 +241,47 @@ const Navbar = () => {
   const iconColorClass = isScrolled ? "text-black" : "text-white";
 
   return (
+    // <div
+    //   className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
+    //     isScrolled ? "bg-white shadow-md py-1" : "bg-transparent py-3"
+    //   }`}
+    //   style={{ height: `${NAVBAR_HEIGHT}px` }}
+    // >
+    //   <div className="flex justify-between items-center w-full px-4">
+    //     {/* Logo & Sidebar */}
+    //     <div className="flex items-center gap-4">
+    //       {isDashboardPage && <SidebarTrigger className="md:hidden" />}
+    //       <Link href="/" scroll={false}>
+    //         <Image
+    //           src={isScrolled ? "/logo.svg" : "/logo1.svg"}
+    //           alt="Logo"
+    //           width={isScrolled ? 140 : 200}
+    //           height={isScrolled ? 140 : 200}
+    //           className="transition-all duration-300"
+    //         />
+    //       </Link>
+    //     </div>
+
     <div
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-        isScrolled ? "bg-white shadow-md py-1" : "bg-transparent py-3"
-      }`}
-      style={{ height: `${NAVBAR_HEIGHT}px` }}
-    >
-      <div className="flex justify-between items-center w-full px-4">
-        {/* Logo & Sidebar */}
-        <div className="flex items-center gap-4">
-          {isDashboardPage && <SidebarTrigger className="md:hidden" />}
-          <Link href="/" scroll={false}>
-            <Image
-              src={isScrolled ? "/logo.svg" : "/logo1.svg"}
-              alt="Logo"
-              width={isScrolled ? 140 : 200}
-              height={isScrolled ? 140 : 200}
-              className="transition-all duration-300"
-            />
-          </Link>
-        </div>
+    className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 text-black ${
+      isScrolled ? "bg-white shadow-md py-1" : "bg-transparent py-3"
+    }`}
+    style={{ height: `${NAVBAR_HEIGHT}px` }}
+  >
+    <div className="flex justify-between items-center w-full px-4">
+      {/* Logo & Sidebar */}
+      <div className="flex items-center gap-4">
+        {isDashboardPage && <SidebarTrigger className="md:hidden" />}
+        <Link href="/" scroll={false}>
+          <Image
+            src={isScrolled || pathname === "/search" ? "/logo.svg" : "/logo1.svg"}
+            alt="Logo"
+            width={isScrolled || pathname === "/search" ? 140 : 200}
+            height={isScrolled || pathname === "/search" ? 140 : 200}
+            className="transition-all duration-300"
+          />
+        </Link>
+      </div>
 
         {/* Desktop Nav */}
         <div className="hidden md:flex gap-6 items-center">
