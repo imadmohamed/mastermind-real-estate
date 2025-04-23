@@ -398,7 +398,7 @@ const Navbar = () => {
             </DropdownMenuTrigger>
             <DropdownMenuContent className="bg-white text-primary-700 min-w-[200px]">
               <DropdownMenuItem asChild>
-                <Link href="/search">Map View</Link>
+                <Link href="/map">Map View</Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
                 <Link href="/search">Our Properties</Link>
