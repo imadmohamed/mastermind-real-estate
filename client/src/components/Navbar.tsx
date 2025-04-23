@@ -263,25 +263,25 @@ const Navbar = () => {
     //     </div>
 
     <div
-    className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 text-black ${
-      isScrolled ? "bg-white shadow-md py-1" : "bg-transparent py-3"
-    }`}
-    style={{ height: `${NAVBAR_HEIGHT}px` }}
-  >
-    <div className="flex justify-between items-center w-full px-4">
-      {/* Logo & Sidebar */}
-      <div className="flex items-center gap-4">
-        {isDashboardPage && <SidebarTrigger className="md:hidden" />}
-        <Link href="/" scroll={false}>
-          <Image
-            src={isScrolled || pathname === "/search" ? "/logo.svg" : "/logo1.svg"}
-            alt="Logo"
-            width={isScrolled || pathname === "/search" ? 140 : 200}
-            height={isScrolled || pathname === "/search" ? 140 : 200}
-            className="transition-all duration-300"
-          />
-        </Link>
-      </div>
+  className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 text-black ${
+    isScrolled ? "bg-white shadow-md py-1" : "bg-transparent py-3"
+  }`}
+  style={{ height: `${NAVBAR_HEIGHT}px` }}
+>
+  <div className="flex justify-between items-center w-full px-4 text-black"> {/* Added text-black here too */}
+    {/* Logo & Sidebar */}
+    <div className="flex items-center gap-4 text-black"> {/* And here */}
+      {isDashboardPage && <SidebarTrigger className="md:hidden text-black" />} {/* And here if needed */}
+      <Link href="/" scroll={false} className="text-black"> {/* Important for Link elements */}
+        <Image
+          src={isScrolled || pathname === "/search" ? "/logo.svg" : "/logo1.svg"}
+          alt="Logo"
+          width={isScrolled || pathname === "/search" ? 140 : 200}
+          height={isScrolled || pathname === "/search" ? 140 : 200}
+          className="transition-all duration-300"
+        />
+      </Link>
+    </div>
 
         {/* Desktop Nav */}
         <div className="hidden md:flex gap-6 items-center">
@@ -290,7 +290,7 @@ const Navbar = () => {
           <Link href="/about" className={navLinkClass}>ABOUT</Link>
           <Link href="/soldproperties" className={navLinkClass}>SOLD PROPERTIES</Link>
 
-          <DropdownMenu>
+         {/* <DropdownMenu>
             <DropdownMenuTrigger className={dropdownTriggerClass}>
               OFF PLAN PROJECTS<ChevronDown className="h-4 w-4" />
             </DropdownMenuTrigger>
@@ -303,6 +303,26 @@ const Navbar = () => {
                 </DropdownMenuItem>
               ))}
             </DropdownMenuContent>
+          </DropdownMenu>  */}
+
+          <DropdownMenu>
+            <DropdownMenuTrigger className={dropdownTriggerClass}>
+            OFF PLAN PROJECTS <ChevronDown className="h-4 w-4" />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="bg-white text-primary-700 min-w-[200px]">
+              <DropdownMenuItem asChild>
+                <Link href="/search?location=Dubai&propertyType=Apartment&coordinates=55.2708%2C25.2048">Apartment</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/search?location=Dubai&propertyType=Villa&coordinates=55.2708%2C25.2048">Villa</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/search?location=Dubai&propertyType=Townhouse&coordinates=55.2708%2C25.2048">Townhouse</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/search?location=Dubai&propertyType=Land&coordinates=55.2708%2C25.2048">Land</Link>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
           </DropdownMenu>
 
           <DropdownMenu>
@@ -311,15 +331,15 @@ const Navbar = () => {
             </DropdownMenuTrigger>
             <DropdownMenuContent className="bg-white text-primary-700 min-w-[200px]">
               <DropdownMenuItem asChild>
-                <Link href="/residential/luxury-villa">Luxury Villa Plot</Link>
+                <Link href="/search?location=Dubai&propertyType=LuxuryVillaPlots&coordinates=55.2708%2C25.2048">Luxury Villa Plot</Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link href="/residential/building">Residential Building Plots</Link>
+                <Link href="/search?location=Dubai&propertyType=ResidentialBuildingPlots&coordinates=55.2708%2C25.2048">Residential Building Plots</Link>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
 
-          <DropdownMenu>
+          {/* <DropdownMenu>
             <DropdownMenuTrigger className={dropdownTriggerClass}>
               COMMERCIAL PLOTS <ChevronDown className="h-4 w-4" />
             </DropdownMenuTrigger>
@@ -340,6 +360,35 @@ const Navbar = () => {
                 </DropdownMenuItem>
               ))}
             </DropdownMenuContent>
+          </DropdownMenu> */}
+
+          <DropdownMenu>
+            <DropdownMenuTrigger className={dropdownTriggerClass}>
+            COMMERCIAL PLOTS <ChevronDown className="h-4 w-4" />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="bg-white text-primary-700 min-w-[200px]">
+              <DropdownMenuItem asChild>
+                <Link href="/search?location=Dubai&propertyType=CommercialBuildingPlots&coordinates=55.2708%2C25.2048">Commercial Building Plots</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/search?location=Dubai&propertyType=LaborCampsPlots&coordinates=55.2708%2C25.2048">Labor Camps Plots</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/search?location=Dubai&propertyType=WarehousePlots&coordinates=55.2708%2C25.2048">Warehouse Plots</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/search?location=Dubai&propertyType=HotelPlots&coordinates=55.2708%2C25.2048">Hotel Plots</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/search?location=Dubai&propertyType=IndustrialPlots&coordinates=55.2708%2C25.2048">Industrial Plots</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/search?location=Dubai&propertyType=SchoolOrHospitalPlots&coordinates=55.2708%2C25.2048">School / Hospital Plot</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/search?location=Dubai&propertyType=OtherCommercialPlot&coordinates=55.2708%2C25.2048">Other Commercial Plot</Link>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
           </DropdownMenu>
 
 
@@ -349,7 +398,7 @@ const Navbar = () => {
             </DropdownMenuTrigger>
             <DropdownMenuContent className="bg-white text-primary-700 min-w-[200px]">
               <DropdownMenuItem asChild>
-                <Link href="/residential/luxury-villa">Map View</Link>
+                <Link href="/search">Map View</Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
                 <Link href="/search">Our Properties</Link>
