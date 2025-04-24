@@ -2,6 +2,8 @@ import { LucideIcon } from "lucide-react";
 import { AuthUser } from "aws-amplify/auth";
 import { Manager, Tenant, Property, Application } from "./prismaTypes";
 import { MotionProps as OriginalMotionProps } from "framer-motion";
+import type { File } from "multer";
+
 
 declare module "framer-motion" {
   interface MotionProps extends OriginalMotionProps {
@@ -134,6 +136,10 @@ declare global {
     cognitoInfo: AuthUser;
     userInfo: Tenant | Manager;
     userRole: JsonObject | JsonPrimitive | JsonArray;
+  }
+  interface Request {
+    file?: File;
+    files?: File[];
   }
 }
 

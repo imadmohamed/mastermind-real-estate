@@ -187,11 +187,7 @@ model Payment {
 
 model SoldProperty {
   id          String   @id @default(uuid())
-  title       String
+  imageUrl    String
   description String
-  price       Float
-  location    String
-  imageUrl    String   // Will store S3 URL
   createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
 }

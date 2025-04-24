@@ -516,46 +516,88 @@ const Navbar = () => {
               </div>
 
               <Link href="/about" onClick={() => setMenuOpen(false)} className="block text-base font-semibold mb-4">About</Link>
-              <Link href="/sold" onClick={() => setMenuOpen(false)} className="block text-base font-semibold mb-4">Sold Products</Link>
+              <Link href="/soldproperties" onClick={() => setMenuOpen(false)} className="block text-base font-semibold mb-4">Sold Products</Link>
 
-              <details className="group mb-4">
+               {/* <details className="group mb-4">
                 <summary className="flex justify-between items-center font-semibold cursor-pointer">
                   Off Plan Projects
                   <ChevronDown className="h-4 w-4 group-open:rotate-180 transition-transform" />
                 </summary>
                 <div className="ml-4 mt-2 flex flex-col gap-2 text-sm text-gray-700">
                   {["apartment", "villa", "townhouse", "land"].map((type) => (
-                    <Link key={type} href={`/off-plan/${type}`} onClick={() => setMenuOpen(false)} className="hover:text-primary-500">
+                    <Link key={type} href={`${type}`} onClick={() => setMenuOpen(false)} className="hover:text-primary-500">
                       {type.charAt(0).toUpperCase() + type.slice(1)}
                     </Link>
                   ))}
                 </div>
-              </details>
+              </details>  */}
 
-              <details className="group mb-4">
-                <summary className="flex justify-between items-center font-semibold cursor-pointer">
-                  Residential Plots
-                  <ChevronDown className="h-4 w-4 group-open:rotate-180 transition-transform" />
-                </summary>
-                <div className="ml-4 mt-2 flex flex-col gap-2 text-sm text-gray-700">
-                  <Link href="/residential/luxury-villa" onClick={() => setMenuOpen(false)} className="hover:text-primary-500">Luxury Villa Plot</Link>
-                  <Link href="/residential/building" onClick={() => setMenuOpen(false)} className="hover:text-primary-500">Residential Building Plots</Link>
-                </div>
-              </details>
+<DropdownMenu>
+  <DropdownMenuTrigger className="flex justify-between items-center font-semibold cursor-pointer">
+    Off Plan Projects
+    <ChevronDown className="h-4 w-4 group-open:rotate-180 transition-transform" />
+  </DropdownMenuTrigger>
+  <DropdownMenuContent className="ml-4 mt-2 flex flex-col gap-2 text-sm text-gray-700 bg-white p-2 min-w-[200px]">
+  <DropdownMenuItem asChild>
+                <Link href="/search?location=Dubai&propertyType=Apartment&coordinates=55.2708%2C25.2048">Apartment</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/search?location=Dubai&propertyType=Villa&coordinates=55.2708%2C25.2048">Villa</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/search?location=Dubai&propertyType=Townhouse&coordinates=55.2708%2C25.2048">Townhouse</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/search?location=Dubai&propertyType=Land&coordinates=55.2708%2C25.2048">Land</Link>
+              </DropdownMenuItem>
+  </DropdownMenuContent>
+</DropdownMenu>
+              
 
-              <details className="group mb-4">
-                <summary className="flex justify-between items-center font-semibold cursor-pointer">
-                  Commercial Plots
-                  <ChevronDown className="h-4 w-4 group-open:rotate-180 transition-transform" />
-                </summary>
-                <div className="ml-4 mt-2 flex flex-col gap-2 text-sm text-gray-700">
-                  {["building", "labor-camps", "warehouse", "hotel", "industrial", "school-hospital", "other"].map((type) => (
-                    <Link key={type} href={`/commercial/${type}`} onClick={() => setMenuOpen(false)} className="hover:text-primary-500">
-                      {type.replace("-", " ").replace(/\b\w/g, (l) => l.toUpperCase())}
-                    </Link>
-                  ))}
-                </div>
-              </details>
+<DropdownMenu>
+  <DropdownMenuTrigger className="flex justify-between items-center font-semibold cursor-pointer">
+    Residential Plots
+    <ChevronDown className="h-4 w-4 group-open:rotate-180 transition-transform" />
+  </DropdownMenuTrigger>
+  <DropdownMenuContent className="ml-4 mt-2 flex flex-col gap-2 text-sm text-gray-700 bg-white p-2 min-w-[200px]">
+  <DropdownMenuItem asChild>
+                <Link href="/search?location=Dubai&propertyType=LuxuryVillaPlots&coordinates=55.2708%2C25.2048">Luxury Villa Plots</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/search?location=Dubai&propertyType=ResidentialBuildingPlots&coordinates=55.2708%2C25.2048">Residential Building Plots</Link>
+              </DropdownMenuItem>
+              
+  </DropdownMenuContent>
+</DropdownMenu>
+
+<DropdownMenu>
+  <DropdownMenuTrigger className="flex justify-between items-center font-semibold cursor-pointer">
+  Commercial Plots    <ChevronDown className="h-4 w-4 group-open:rotate-180 transition-transform" />
+  </DropdownMenuTrigger>
+  <DropdownMenuContent className="ml-4 mt-2 flex flex-col gap-2 text-sm text-gray-700 bg-white p-2 min-w-[200px]">
+  <DropdownMenuItem asChild>
+                <Link href="/search?location=Dubai&propertyType=CommercialBuildingPlots&coordinates=55.2708%2C25.2048">Commercial Building Plots</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/search?location=Dubai&propertyType=LaborCampsPlots&coordinates=55.2708%2C25.2048">Labor Camps Plots</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/search?location=Dubai&propertyType=WarehousePlots&coordinates=55.2708%2C25.2048">Warehouse Plots</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/search?location=Dubai&propertyType=HotelPlots&coordinates=55.2708%2C25.2048">Hotel Plots</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/search?location=Dubai&propertyType=IndustrialPlots&coordinates=55.2708%2C25.2048">Industrial Plots</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/search?location=Dubai&propertyType=SchoolOrHospitalPlots&coordinates=55.2708%2C25.2048">School / Hospital Plots</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/search?location=Dubai&propertyType=OtherCommercialPlot&coordinates=55.2708%2C25.2048">Other Commercial Plot</Link>
+              </DropdownMenuItem>
+  </DropdownMenuContent>
+</DropdownMenu>
 
               <Link href="/map" onClick={() => setMenuOpen(false)} className="block text-base font-semibold mb-4">Map</Link>
               <Link href="/contact" onClick={() => setMenuOpen(false)} className="block text-base font-semibold mb-4">Contact</Link>
