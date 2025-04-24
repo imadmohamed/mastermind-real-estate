@@ -5,7 +5,7 @@ function ArcMap() {
 
   return (
     <div>
-      <arcgis-map ref={mapRef} center="55.2606791, 25.0124691" zoom="11">
+      <arcgis-map ref={mapRef} center="55.2606791, 25.0124691" zoom="11.5">
         <arcgis-zoom position="top-left"></arcgis-zoom>
       </arcgis-map>
     </div>

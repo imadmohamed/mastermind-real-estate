@@ -165,6 +165,9 @@
 // export default ArcGISMapNext;
 
 
+// this is the real code
+
+
 'use client';
 
 import { useEffect, useRef } from 'react';
@@ -357,3 +360,4 @@ const ArcGISMapNext = () => {
 };
 
 export default ArcGISMapNext;
+
