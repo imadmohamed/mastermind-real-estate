@@ -37,9 +37,10 @@ const AppSidebar = ({ userType }: AppSidebarProps) => {
             label: "Applications",
             href: "/managers/applications",
           },
-          { icon: Settings, label: "Settings", href: "/managers/settings" },
           { icon: Building, label: "Sold Properties", href: "/managers/soldproperties" },
           { icon: Map, label: "Map", href: "/managers/map" },
+          { icon: Settings, label: "Settings", href: "/managers/settings" },
+
 
 
 
