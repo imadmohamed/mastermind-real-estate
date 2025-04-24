@@ -39,7 +39,7 @@ const AppSidebar = ({ userType }: AppSidebarProps) => {
           },
           { icon: Settings, label: "Settings", href: "/managers/settings" },
           { icon: Building, label: "Sold Properties", href: "/managers/soldproperties" },
-          { icon: Map, label: "Map", href: "/managers/soldproperties" },
+          { icon: Map, label: "Map", href: "/managers/map" },
 
 
 
