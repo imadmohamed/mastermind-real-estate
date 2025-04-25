@@ -256,7 +256,7 @@ const ArcGISMapNext = ({markerValues}:any) => {
 
           const simpleLineSymbol = {
             type: 'simple-line',
-            color: [226, 119, 40],
+            color: [255, 0, 0],
             width: 2,
           };
 
@@ -276,7 +276,7 @@ const ArcGISMapNext = ({markerValues}:any) => {
 
           const simpleFillSymbol = {
             type: 'simple-fill',
-            color: [227, 139, 79, 0.8],
+            color: [255, 0, 0],
             outline: {
               color: [255, 255, 255],
               width: 1,

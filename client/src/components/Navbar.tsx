@@ -304,23 +304,25 @@ const Navbar = () => {
               ))}
             </DropdownMenuContent>
           </DropdownMenu>  */}
-
           <DropdownMenu>
             <DropdownMenuTrigger className={dropdownTriggerClass}>
             OFF PLAN PROJECTS <ChevronDown className="h-4 w-4" />
             </DropdownMenuTrigger>
             <DropdownMenuContent className="bg-white text-primary-700 min-w-[200px]">
               <DropdownMenuItem asChild>
-                <Link href="/search?location=Dubai&propertyType=Apartment&coordinates=55.2708%2C25.2048">Apartment</Link>
+                <Link href="/apartment?location=Dubai&propertyType=Apartment&coordinates=55.2708%2C25.2048">Apartment</Link>
+                {/* search?location=Dubai&propertyType=Apartment&coordinates=55.2708%2C25.2048 */}
+
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link href="/search?location=Dubai&propertyType=Villa&coordinates=55.2708%2C25.2048">Villa</Link>
+                <Link href="/apartment?location=Dubai&propertyType=Villa&coordinates=55.2708%2C25.2048">Villa</Link>
+                {/* search?location=Dubai&propertyType=Villa&coordinates=55.2708%2C25.2048 */}
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link href="/search?location=Dubai&propertyType=Townhouse&coordinates=55.2708%2C25.2048">Townhouse</Link>
+                <Link href="/apartment?location=Dubai&propertyType=Townhouse&coordinates=55.2708%2C25.2048">Townhouse</Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link href="/search?location=Dubai&propertyType=Land&coordinates=55.2708%2C25.2048">Land</Link>
+                <Link href="/apartment?location=Dubai&propertyType=Land&coordinates=55.2708%2C25.2048">Land</Link>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
@@ -331,10 +333,10 @@ const Navbar = () => {
             </DropdownMenuTrigger>
             <DropdownMenuContent className="bg-white text-primary-700 min-w-[200px]">
               <DropdownMenuItem asChild>
-                <Link href="/search?location=Dubai&propertyType=LuxuryVillaPlots&coordinates=55.2708%2C25.2048">Luxury Villa Plot</Link>
+                <Link href="/apartment?location=Dubai&propertyType=LuxuryVillaPlots&coordinates=55.2708%2C25.2048">Luxury Villa Plot</Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link href="/search?location=Dubai&propertyType=ResidentialBuildingPlots&coordinates=55.2708%2C25.2048">Residential Building Plots</Link>
+                <Link href="/apartment?location=Dubai&propertyType=ResidentialBuildingPlots&coordinates=55.2708%2C25.2048">Residential Building Plots</Link>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
@@ -368,25 +370,25 @@ const Navbar = () => {
             </DropdownMenuTrigger>
             <DropdownMenuContent className="bg-white text-primary-700 min-w-[200px]">
               <DropdownMenuItem asChild>
-                <Link href="/search?location=Dubai&propertyType=CommercialBuildingPlots&coordinates=55.2708%2C25.2048">Commercial Building Plots</Link>
+                <Link href="/apartment?location=Dubai&propertyType=CommercialBuildingPlots&coordinates=55.2708%2C25.2048">Commercial Building Plots</Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link href="/search?location=Dubai&propertyType=LaborCampsPlots&coordinates=55.2708%2C25.2048">Labor Camps Plots</Link>
+                <Link href="/apartment?location=Dubai&propertyType=LaborCampsPlots&coordinates=55.2708%2C25.2048">Labor Camps Plots</Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link href="/search?location=Dubai&propertyType=WarehousePlots&coordinates=55.2708%2C25.2048">Warehouse Plots</Link>
+                <Link href="/apartment?location=Dubai&propertyType=WarehousePlots&coordinates=55.2708%2C25.2048">Warehouse Plots</Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link href="/search?location=Dubai&propertyType=HotelPlots&coordinates=55.2708%2C25.2048">Hotel Plots</Link>
+                <Link href="/apartment?location=Dubai&propertyType=HotelPlots&coordinates=55.2708%2C25.2048">Hotel Plots</Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link href="/search?location=Dubai&propertyType=IndustrialPlots&coordinates=55.2708%2C25.2048">Industrial Plots</Link>
+                <Link href="/apartment?location=Dubai&propertyType=IndustrialPlots&coordinates=55.2708%2C25.2048">Industrial Plots</Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link href="/search?location=Dubai&propertyType=SchoolOrHospitalPlots&coordinates=55.2708%2C25.2048">School / Hospital Plot</Link>
+                <Link href="/apartment?location=Dubai&propertyType=SchoolOrHospitalPlots&coordinates=55.2708%2C25.2048">School / Hospital Plot</Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link href="/search?location=Dubai&propertyType=OtherCommercialPlot&coordinates=55.2708%2C25.2048">Other Commercial Plot</Link>
+                <Link href="/apartment?location=Dubai&propertyType=OtherCommercialPlot&coordinates=55.2708%2C25.2048">Other Commercial Plot</Link>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

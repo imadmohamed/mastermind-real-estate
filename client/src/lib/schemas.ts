@@ -51,3 +51,4 @@ export const MapPointer = z.object({
 });
 
 export type SettingsFormData = z.infer<typeof settingsSchema>;
+
