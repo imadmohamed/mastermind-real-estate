@@ -104,6 +104,8 @@ model Property {
   applications Application[]
   favoritedBy  Tenant[]      @relation("TenantFavorites")
   tenants      Tenant[]      @relation("TenantProperties")
+  user         User?         @relation(fields: [userId], references: [id])
+  userId       String?
 }
 
 model Manager {
@@ -190,4 +192,18 @@ model SoldProperty {
   imageUrl    String
   description String
   createdAt   DateTime @default(now())
+}
+
+model User {
+  id          String    @id @default(cuid())
+  cognitoId   String    @unique
+  email       String    @unique
+  role        String    @default("USER")
+  firstName   String?
+  lastName    String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  properties  Property[]
+  
+  @@map("users")
 }

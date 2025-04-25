@@ -392,7 +392,7 @@ const Navbar = () => {
           </DropdownMenu>
 
 
-          {/* <DropdownMenu>
+          <DropdownMenu>
             <DropdownMenuTrigger className={dropdownTriggerClass}>
               MAPS <ChevronDown className="h-4 w-4" />
             </DropdownMenuTrigger>
@@ -401,11 +401,10 @@ const Navbar = () => {
                 <Link href="/map">Map View</Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link href="/search">Our Properties</Link>
+                <Link href="/search?location=Dubai&coordinates=55.2708%2C25.2048">All Properties</Link>
               </DropdownMenuItem>
             </DropdownMenuContent>
-          </DropdownMenu> */}
-          <Link href="/map" className={navLinkClass}>MAP VIEW</Link>
+          </DropdownMenu>
 
 
           <Link href="/contact" className={navLinkClass}>CONTACT</Link>

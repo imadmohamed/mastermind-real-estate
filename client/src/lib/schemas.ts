@@ -45,4 +45,9 @@ export const settingsSchema = z.object({
   phoneNumber: z.string().min(10, "Phone number must be at least 10 digits"),
 });
 
+export const MapPointer = z.object({
+  latitude: z.coerce.number().min(-90).max(90),
+  longitude: z.coerce.number().min(-180).max(180),  
+});
+
 export type SettingsFormData = z.infer<typeof settingsSchema>;
