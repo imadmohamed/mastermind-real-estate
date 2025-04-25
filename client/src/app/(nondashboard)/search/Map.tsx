@@ -115,7 +115,7 @@ const Map = () => {
       container: mapContainerRef.current!,
       style: "mapbox://styles/imadathambawa00/cm99uyfgj000801pcflzfh10o",
       center: filters.coordinates || [-74.5, 40],
-      zoom: 9,
+      zoom: 8.5,
     });
 
     properties.forEach((property) => {

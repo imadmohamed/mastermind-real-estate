@@ -9,6 +9,7 @@ import FiltersFull from "./FiltersFull";
 import { cleanParams } from "@/lib/utils";
 import { setFilters } from "@/state";
 import Listings from "./Listings";
+import FooterSection from "../landing/FooterSection";
 
 const SearchPage = () => {
   const searchParams = useSearchParams();
@@ -66,7 +67,9 @@ const SearchPage = () => {
           <Listings />
         </div>
       </div>
+      <FooterSection/>
     </div>
+    
   );
 };
 

@@ -10,6 +10,7 @@ import { cleanParams } from "@/lib/utils";
 import { setFilters } from "@/state";
 import Map from "./Map";
 import Listings from "./Listings";
+import FooterSection from "../landing/FooterSection";
 
 const SearchPage = () => {
   const searchParams = useSearchParams();
